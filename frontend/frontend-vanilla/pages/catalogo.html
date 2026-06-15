@@ -1,80 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TECNO X | Catalogo</title>
-  
-  <!-- CDN de Bootstrap 5 (Estilos) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  
-  <!-- Estilos del equipo (Notar el ../ para salir de la carpeta pages) -->
-  <link rel="stylesheet" href="../css/variables.css">
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TECNO X | Catalogo</title>
 
-  <!-- NAVBAR / ENCABEZADO -->
-  <header class="encabezado-sitio sticky-top shadow-sm">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent container-fluid px-4" style="max-width: var(--ancho-contenedor);">
-      
-      <!-- Logo -->
-      <a class="navbar-brand fw-bold fs-3 text-uppercase text-decoration-none" href="../index.html" style="color: var(--color-acento);">
-        TECNO X
-      </a>
+    <!-- CDN de Bootstrap 5 (Estilos) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
 
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- Estilos del equipo (Notar el ../ para salir de la carpeta pages) -->
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <!-- Bootstrap Icons para los filtros -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <!-- NAVBAR / ENCABEZADO -->
+    <header class="encabezado-sitio sticky-top shadow-sm">
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-transparent container-fluid px-4"
+        style="max-width: var(--ancho-contenedor)"
+      >
+        <!-- Logo -->
+        <a
+          class="navbar-brand fw-bold fs-3 text-uppercase text-decoration-none"
+          href="../index.html"
+          style="color: var(--color-acento)"
+        >
+          TECNO X
+        </a>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav gap-2 py-2 py-lg-0 text-center">
-          <li class="nav-item">
-            <a class="nav-link fw-semibold" href="../index.html" style="color: var(--color-texto-claro);">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-semibold" href="./catalogo.html" style="color: var(--color-texto-claro);">Catálogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-semibold" href="./carrito.html" style="color: var(--color-texto-claro);">Carrito</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-semibold" href="./checkout.html" style="color: var(--color-texto-claro);">Checkout</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-semibold btn btn-sm btn-outline px-3 ms-lg-2 mt-2 mt-lg-0" href="./admin.html">Admin</a>
-          </li>
-        </ul>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav gap-2 py-2 py-lg-0 text-center">
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold"
+                href="../index.html"
+                style="color: var(--color-texto-claro)"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold"
+                href="./catalogo.html"
+                style="color: var(--color-texto-claro)"
+                >Catálogo</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold"
+                href="./carrito.html"
+                style="color: var(--color-texto-claro)"
+                >Carrito</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold"
+                href="./checkout.html"
+                style="color: var(--color-texto-claro)"
+                >Checkout</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold btn btn-sm btn-outline px-3 ms-lg-2 mt-2 mt-lg-0"
+                href="./admin.html"
+                >Admin</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Contenedor en fila para Filtros + Productos -->
+    <main class="min-vh-100 container py-5" style="max-width: var(--ancho-contenedor)">
+      <div class="row g-4">
+        <!-- 1. FILTROS LATERALES VISUALES (Criterio de Aceptación) -->
+        <aside class="col-12 col-lg-3">
+          <div
+            class="card border-0 shadow-sm rounded-4 p-4 sticky-lg-top"
+            style="top: 90px; z-index: 10"
+          >
+            <h2 class="h5 fw-bold text-uppercase mb-3">
+              <i class="bi bi-funnel-fill me-2"></i>Filtros
+            </h2>
+            <hr class="text-muted" />
+
+            <!-- Filtro por Categorías Obligatorias -->
+            <div class="mb-4">
+              <h3 class="h6 fw-bold text-uppercase text-secondary mb-2">Categorías</h3>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-cel" checked /><label
+                  class="form-check-label text-dark"
+                  for="cat-cel"
+                  >Celulares</label
+                >
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-aur" /><label
+                  class="form-check-label text-dark"
+                  for="cat-aur"
+                  >Auriculares</label
+                >
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-par" /><label
+                  class="form-check-label text-dark"
+                  for="cat-par"
+                  >Parlantes</label
+                >
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-fun" /><label
+                  class="form-check-label text-dark"
+                  for="cat-fun"
+                  >Fundas</label
+                >
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat-acc" /><label
+                  class="form-check-label text-dark"
+                  for="cat-acc"
+                  >Accesorios</label
+                >
+              </div>
+            </div>
+
+            <!-- Filtro por Precio (Solo visual) -->
+            <div class="mb-4">
+              <h3 class="h6 fw-bold text-uppercase text-secondary mb-2">Precio Máximo</h3>
+              <label for="rango-precio" class="form-label small text-muted"
+                >Hasta: $1.000.000</label
+              >
+              <input
+                type="range"
+                class="form-range"
+                min="0"
+                max="1000000"
+                step="50000"
+                id="rango-precio"
+              />
+            </div>
+
+            <button class="btn btn-outline-dark btn-sm w-100 rounded-3">Limpiar Filtros</button>
+          </div>
+        </aside>
+
+        <!-- 2. SECCIÓN DE PRODUCTOS (Criterio de Aceptación) -->
+        <section class="col-12 col-lg-9">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <p class="text-muted mb-0">Mostrando productos sugeridos</p>
+            <select class="form-select form-select-sm rounded-3" style="width: auto">
+              <option>Ordenar por: Destacados</option>
+              <option>Precio: Menor a Mayor</option>
+              <option>Precio: Mayor a Menor</option>
+            </select>
+          </div>
+
+          <!-- Grilla responsiva de productos -->
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            <!-- Producto 1: Notebook hp -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/not_hp.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Samsung A-series"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Notebooks</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">Notebook HP</h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$899.999</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 2: microfono -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/microfono.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Auriculares"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Microfono inalambrico</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">Microfono inalambrico</h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$214.500</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 3: Parlante -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/Parlante.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Parlante"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Parlantes</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">Parlante Portátil Bass Go</h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$78.900</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 4: tablet samsung -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/tablet_sam.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Tablet"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Tablets</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">
+                      Tablet Samsung Galaxy Tab A7
+                    </h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$150.000</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 5: Smartwatch -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/SmartWatch.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Smartwatch"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Accesorios</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">Smartwatch</h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$150.000</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 6: Smartband -->
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <img
+                  src="../img/smartband.jpeg"
+                  class="card-img-top object-fit-cover bg-light"
+                  alt="Smartband"
+                  style="height: 180px"
+                />
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <span class="badge text-bg-light text-uppercase small px-2 py-1 mb-2"
+                      >Accesorios</span
+                    >
+                    <h3 class="card-title h6 fw-bold text-dark mb-1">Smartband</h3>
+                    <p class="card-text text-success fw-bold fs-5 mb-0">$35.000</p>
+                  </div>
+                  <a
+                    href="./detalle.html"
+                    class="btn btn-outline-primary btn-sm w-100 rounded-3 mt-3 fw-medium"
+                    >Ver Detalle</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cierre grilla -->
+        </section>
+        <!-- Cierre seccion de productos -->
       </div>
+      <!-- Cierre contenedor fila -->
+    </main>
 
-    </nav>
-  </header>
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="pie-sitio mt-auto py-4 shadow-lg border-top border-dark">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+        style="max-width: var(--ancho-contenedor)"
+      >
+        <p class="mb-0 fw-medium">
+          &copy; 2026
+          <span class="fw-bold text-uppercase" style="color: var(--color-acento)">TECNO X</span> -
+          Tecnología en Jujuy
+        </p>
 
-  <!-- CONTENEDOR PRINCIPAL -->
-  <main class="min-vh-100 container py-5" style="max-width: var(--ancho-contenedor);">
-    
-    
-    <section class="seccion text-center bg-white rounded-4 shadow-sm p-5 my-4">
-      <h1 class="titulo-seccion fw-extrabold display-4">Catalogo</h1>
-      <p class="texto-seccion fs-5 mt-3">Contenido temporal para el Sprint 1.</p>
-    </section>
-
-  </main>
-
-  <!-- PIE DE PÁGINA (FOOTER) -->
-  <footer class="pie-sitio mt-auto py-4 shadow-lg border-top border-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3" style="max-width: var(--ancho-contenedor);">
-      <p class="mb-0 fw-medium">&copy; 2026 <span class="fw-bold text-uppercase" style="color: var(--color-acento);">TECNO X</span> - Tecnología en Jujuy</p>
-      
-      <div class="d-flex gap-3 fs-6">
-        <a href="./catalogo.html" class="text-decoration-none">Tienda</a>
-        <span class="text-secondary">|</span>
-        <a href="./carrito.html" class="text-decoration-none">Mi Carrito</a>
+        <div class="d-flex gap-3 fs-6">
+          <a href="./catalogo.html" class="text-decoration-none">Tienda</a>
+          <span class="text-secondary">|</span>
+          <a href="./carrito.html" class="text-decoration-none">Mi Carrito</a>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- CDN de Bootstrap 5 (Scripts) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+    <!-- CDN de Bootstrap 5 (Scripts) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
