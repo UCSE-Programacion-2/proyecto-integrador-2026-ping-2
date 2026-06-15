@@ -54,12 +54,205 @@
   <main class="min-vh-100 container py-5" style="max-width: var(--ancho-contenedor);">
     
     
-    <section class="seccion text-center bg-white rounded-4 shadow-sm p-5 my-4">
-      <h1 class="titulo-seccion fw-extrabold display-4">Admin</h1>
-      <p class="texto-seccion fs-5 mt-3">Contenido temporal para el Sprint 1.</p>
-    </section>
+    <section class="mb-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+    <div>
+      <h1 class="titulo-seccion text-start mb-2">Panel de Administración</h1>
+      <p class="texto-seccion text-start mb-0">
+        Vista estática para simular la gestión de productos de TECNO X.
+      </p>
+    </div>
+
+    <button class="btn btn-principal" type="button" data-bs-toggle="modal" data-bs-target="#modalProducto">
+      Crear producto
+    </button>
+  </div>
+</section>
+
+<section class="row g-3 mb-4">
+  <div class="col-12 col-md-4">
+    <article class="card p-3 h-100">
+      <p class="mb-1 text-muted">Productos cargados</p>
+      <h2 class="mb-0">12</h2>
+    </article>
+  </div>
+
+  <div class="col-12 col-md-4">
+    <article class="card p-3 h-100">
+      <p class="mb-1 text-muted">Stock bajo</p>
+      <h2 class="mb-0">3</h2>
+    </article>
+  </div>
+
+  <div class="col-12 col-md-4">
+    <article class="card p-3 h-100">
+      <p class="mb-1 text-muted">Categorías</p>
+      <h2 class="mb-0">5</h2>
+    </article>
+  </div>
+</section>
+
+<section class="card p-3 p-md-4">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+      <h2 class="h4 mb-1">Listado de productos</h2>
+      <p class="text-muted mb-0">Productos de ejemplo para preparar el futuro CRUD.</p>
+    </div>
+
+    <input class="campo-formulario w-auto" type="text" placeholder="Buscar producto">
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Estado</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <strong>Samsung Galaxy A15</strong>
+            <p class="small text-muted mb-0">128GB - Negro</p>
+          </td>
+          <td>Celulares</td>
+          <td>$280.000</td>
+          <td>8</td>
+          <td><span class="badge text-bg-success">Activo</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-dark" type="button">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" type="button">Eliminar</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Auriculares Xiaomi Redmi Buds 6 Pro</strong>
+            <p class="small text-muted mb-0">Inalámbricos</p>
+          </td>
+          <td>Auriculares</td>
+          <td>$35.000</td>
+          <td>15</td>
+          <td><span class="badge text-bg-success">Activo</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-dark" type="button">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" type="button">Eliminar</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Altavoz Bluetooth ultraportátil JBL Go 4 </strong>
+            <p class="small text-muted mb-0">Portátil Bluetooth</p>
+          </td>
+          <td>Parlantes</td>
+          <td>$48.000</td>
+          <td>2</td>
+          <td><span class="badge text-bg-warning">Stock bajo</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-dark" type="button">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" type="button">Eliminar</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Funda mecanica reforzada</strong>
+            <p class="small text-muted mb-0">Modelo universal</p>
+          </td>
+          <td>Fundas</td>
+          <td>$8.500</td>
+          <td>0</td>
+          <td><span class="badge text-bg-secondary">Sin stock</span></td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-dark" type="button">Editar</button>
+            <button class="btn btn-sm btn-outline-danger" type="button">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
   </main>
+
+<!-- MODAL CREAR PRODUCTO -->
+<div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="modalProductoLabel">Crear producto</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="nombreProducto">Nombre del producto</label>
+              <input class="form-control" type="text" id="nombreProducto" placeholder="Ej: Cargador rápido">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="categoriaProducto">Categoría</label>
+              <select class="form-select" id="categoriaProducto">
+                <option selected>Seleccionar</option>
+                <option>Celulares</option>
+                <option>Auriculares</option>
+                <option>Parlantes</option>
+                <option>Fundas</option>
+                <option>Accesorios</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label" for="precioProducto">Precio</label>
+              <input class="form-control" type="text" id="precioProducto" placeholder="$0">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label" for="stockProducto">Stock</label>
+              <input class="form-control" type="number" id="stockProducto" placeholder="0">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label" for="estadoProducto">Estado</label>
+              <select class="form-select" id="estadoProducto">
+                <option selected>Activo</option>
+                <option>Stock bajo</option>
+                <option>Sin stock</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="descripcionProducto">Descripción</label>
+              <textarea class="form-control" id="descripcionProducto" rows="3" placeholder="Descripción breve del producto"></textarea>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="imagenProducto">Imagen</label>
+              <input class="form-control" type="file" id="imagenProducto">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secundario" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-principal">Guardar producto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
   <!-- PIE DE PÁGINA (FOOTER) -->
   <footer class="pie-sitio mt-auto py-4 shadow-lg border-top border-dark">
