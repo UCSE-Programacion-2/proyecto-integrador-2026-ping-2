@@ -100,27 +100,57 @@
       </div>
     </section>
 
-    <!-- 3. BANNERS PROMOCIONALES SECUNDARIOS -->
-    <section class="row g-4 mb-5">
-      <div class="col-md-6">
-        <div class="p-4 rounded-4 text-white h-100 d-flex flex-column justify-content-between shadow-sm" style="background: linear-gradient(45deg, #1e3c72, #2a5298);">
-          <div>
-            <h3 class="fw-bold">Zona Gamer 🕹️</h3>
-            <p class="small text-white-50">Periféricos, monitores y componentes de alta fidelidad.</p>
-          </div>
-          <a href="./pages/catalogo.html" class="btn btn-sm btn-outline-light align-self-start mt-3">Ver Especial</a>
-        </div>
+<!-- 3. BANNERS PROMOCIONALES -->
+<section class="mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 fw-bold text-uppercase mb-1">Promociones</h2>
+      <p class="text-muted mb-0">Novedades y productos destacados de TECNO X.</p>
+    </div>
+  </div>
+
+  <div id="bannersPromocionales" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#bannersPromocionales" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Redmi 15C"></button>
+      <button type="button" data-bs-target="#bannersPromocionales" data-bs-slide-to="1" aria-label="Motorola G86"></button>
+      <button type="button" data-bs-target="#bannersPromocionales" data-bs-slide-to="2" aria-label="Lenovo Slim 3"></button>
+      <button type="button" data-bs-target="#bannersPromocionales" data-bs-slide-to="3" aria-label="Notebook HP 15"></button>
+      <button type="button" data-bs-target="#bannersPromocionales" data-bs-slide-to="4" aria-label="iPhone 17 Pro Max"></button>
+    </div>
+
+    <div class="carousel-inner rounded-4 shadow-sm bg-dark">
+      <div class="carousel-item active" data-bs-interval="4500">
+        <img src="./img/banners/redmi15c.jpg" class="banner-img" alt="Promoción Redmi 15C">
       </div>
-      <div class="col-md-6">
-        <div class="p-4 rounded-4 text-white h-100 d-flex flex-column justify-content-between shadow-sm" style="background: linear-gradient(45deg, #11998e, #38ef7d);">
-          <div>
-            <h3 class="fw-bold">Hasta 12 Cuotas Fijas 💳</h3>
-            <p class="small text-white-50">Aprovechá la financiación con Tarjeta de Crédito y Mercado Pago.</p>
-          </div>
-          <a href="./pages/catalogo.html" class="btn btn-sm btn-light align-self-start mt-3">Ver Productos</a>
-        </div>
+
+      <div class="carousel-item" data-bs-interval="4500">
+        <img src="./img/banners/motog86.jpg" class="banner-img" alt="Promoción Motorola G86">
       </div>
-    </section>
+
+      <div class="carousel-item" data-bs-interval="4500">
+        <img src="./img/banners/lenovoslim3.jpg" class="banner-img" alt="Promoción Lenovo Ideapad Slim 3">
+      </div>
+
+      <div class="carousel-item" data-bs-interval="4500">
+        <img src="./img/banners/notebookHP15.jpg" class="banner-img" alt="Promoción Notebook HP 15">
+      </div>
+
+      <div class="carousel-item" data-bs-interval="4500">
+        <img src="./img/banners/iphone17proMax.jpg" class="banner-img" alt="Promoción iPhone 17 Pro Max">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannersPromocionales" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#bannersPromocionales" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+</section>
 
     <!-- 4. SECCIÓN PRODUCTOS DESTACADOS -->
     <section class="mb-5">
