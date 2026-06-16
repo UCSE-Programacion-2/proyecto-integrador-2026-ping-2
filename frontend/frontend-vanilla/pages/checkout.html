@@ -8,7 +8,7 @@
   <!-- CDN de Bootstrap 5 (Estilos) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   
-  <!-- Estilos del equipo (Notar el ../ para salir de la carpeta pages) -->
+  <!-- Estilos del equipo -->
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -39,7 +39,7 @@
             <a class="nav-link fw-semibold" href="./carrito.html" style="color: var(--color-texto-claro);">Carrito</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fw-semibold" href="./checkout.html" style="color: var(--color-texto-claro);">Checkout</a>
+            <a class="nav-link active fw-semibold" aria-current="page" href="./checkout.html">Checkout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link fw-semibold btn btn-sm btn-outline px-3 ms-lg-2 mt-2 mt-lg-0" href="./admin.html">Admin</a>
@@ -52,16 +52,171 @@
 
   <!-- CONTENEDOR PRINCIPAL -->
   <main class="min-vh-100 container py-5" style="max-width: var(--ancho-contenedor);">
-    
-    
-    <section class="seccion text-center bg-white rounded-4 shadow-sm p-5 my-4">
-      <h1 class="titulo-seccion fw-extrabold display-4">Checkout</h1>
-      <p class="texto-seccion fs-5 mt-3">Contenido temporal para el Sprint 1.</p>
-    </section>
+
+    <h1 class="h2 fw-extrabold text-uppercase mb-4">Finalizar Compra</h1>
+
+    <!-- Formulario General de Checkout -->
+    <form class="needs-validation" novalidate>
+      <div class="row g-4">
+        
+        <!-- COLUMNA IZQUIERDA: Formulario de Envío y Pago -->
+        <div class="col-12 col-lg-8">
+          
+          <!-- Bloque 1: Datos Personales y de Envío -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+            <h2 class="h5 fw-bold text-uppercase mb-3 border-bottom pb-2">1. Datos de Envío</h2>
+            
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <label for="nombre" class="form-label small fw-semibold text-secondary">Nombre</label>
+                <input type="text" class="form-control" id="nombre" required>
+              </div>
+              
+              <div class="col-12 col-sm-6">
+                <label for="apellido" class="form-label small fw-semibold text-secondary">Apellido</label>
+                <input type="text" class="form-control" id="apellido" required>
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <label for="email" class="form-label small fw-semibold text-secondary">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
+              </div>
+
+              <div class="col-12 col-sm-6">
+                <label for="telefono" class="form-label small fw-semibold text-secondary">Teléfono / Celular</label>
+                <input type="tel" class="form-control" id="telefono" placeholder="388-1234567" required>
+              </div>
+
+              <div class="col-12 col-sm-8">
+                <label for="direccion" class="form-label small fw-semibold text-secondary">Dirección (Calle y Número)</label>
+                <input type="text" class="form-control" id="direccion" placeholder="Av. Fascio 100" required>
+              </div>
+
+              <div class="col-12 col-sm-4">
+                <label for="piso" class="form-label small fw-semibold text-secondary">Piso / Dpto (Opcional)</label>
+                <input type="text" class="form-control" id="piso">
+              </div>
+
+              <div class="col-12 col-sm-5">
+                <label for="ciudad" class="form-label small fw-semibold text-secondary">Ciudad</label>
+                <input type="text" class="form-control" id="ciudad" placeholder="San Salvador de Jujuy" required>
+              </div>
+
+              <div class="col-12 col-sm-4">
+                <label for="provincia" class="form-label small fw-semibold text-secondary">Provincia</label>
+                <select class="form-select" id="provincia" required>
+                  <option value="Jujuy" selected>Jujuy</option>
+                  <option value="Salta">Salta</option>
+                  <option value="Tucumán">Tucumán</option>
+                  <option value="Salta">Catamarca</option>
+                  <option value="Salta">Santiago del Estero</option>
+                  <option value="Salta">Formosa</option>
+                  <option value="Salta">Chaco</option>
+                  <option value="Salta">Corrientes</option>
+                  <option value="Salta">Misiones</option>
+                  <option value="Salta">Entre Rios</option>
+                  <option value="Salta">Santa Fe</option>
+                  <option value="Salta">Cordoba</option>
+                  <option value="Salta">San Luis</option>
+                  <option value="Salta">La Rioja</option>
+                  <option value="Salta">San Juan</option>
+                  <option value="Salta">Mendoza</option>
+                  <option value="Salta">Neuquen</option>
+                  <option value="Salta">La Pampa</option>
+                  <option value="Salta">Buenos Aires</option>
+                  <option value="Salta">Rio Negro</option>
+                  <option value="Salta">Chubut</option>
+                  <option value="Salta">Santa Cruz</option>
+                  <option value="Salta">Tierra del Fuego</option>
+                  
+                </select>
+              </div>
+
+              <div class="col-12 col-sm-3">
+                <label for="codigoPostal" class="form-label small fw-semibold text-secondary">Código Postal</label>
+                <input type="text" class="form-control" id="codigoPostal" placeholder="4600" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloque 2: Método de Pago -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+            <h2 class="h5 fw-bold text-uppercase mb-3 border-bottom pb-2">2. Método de Pago</h2>
+            
+            <div class="my-3">
+              <!-- Opción 1: Mercado Pago / Tarjetas -->
+              <div class="form-check mb-3 p-3 border rounded-3 bg-light">
+                <input id="mercadoPago" name="metodoPago" type="radio" class="form-check-input ms-0 me-3" checked required>
+                <label class="form-check-label fw-bold text-dark" for="mercadoPago">
+                  Mercado Pago / Tarjetas de Crédito y Débito
+                </label>
+              </div>
+
+              <!-- Opción 2: Transferencia Bancaria -->
+              <div class="form-check p-3 border rounded-3 bg-light">
+                <input id="transferencia" name="metodoPago" type="radio" class="form-check-input ms-0 me-3" required>
+                <label class="form-check-label fw-bold text-dark" for="transferencia">
+                  Transferencia Bancaria
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: Resumen del Pedido -->
+        <div class="col-12 col-lg-4">
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-lg-top" style="top: 100px; z-index: 10;">
+            <h2 class="h5 fw-bold text-uppercase mb-3 border-bottom pb-2">Resumen del Pedido</h2>
+            
+            <!-- Lista de productos en el carrito -->
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 bg-transparent">
+                <div class="d-flex align-items-center gap-3">
+                  <img src="../img/Parlante.jpeg" alt="Parlante JBL" class="rounded-3 border bg-light object-fit-cover" style="width: 50px; height: 50px;">
+                  <div>
+                    <h6 class="my-0 fw-bold small text-dark text-uppercase">Parlante bluetooth JBL</h6>
+                    <small class="text-muted">Cantidad: 1</small>
+                  </div>
+                </div>
+                <span class="text-dark fw-semibold small">$78.900</span>
+              </li>
+            </ul>
+
+            <!-- Desglose de costos -->
+            <div class="border-top pt-3">
+              <div class="d-flex justify-content-between mb-2 small text-secondary">
+                <span>Subtotal</span>
+                <span>$78.900</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2 small text-secondary">
+                <span>Envío (Jujuy)</span>
+                <span class="text-success fw-semibold">Gratis</span>
+              </div>
+              <hr class="my-2">
+              <div class="d-flex justify-content-between mb-4">
+                <span class="fw-bold text-dark text-uppercase">Total</span>
+                <strong class="text-primary h4 mb-0">$78.900</strong>
+              </div>
+            </div>
+
+            <!-- Botón definitivo de envío -->
+            <button class="btn btn-warning btn-lg w-100 fw-bold text-uppercase shadow-sm py-2" type="submit">
+              Confirmar y Pagar
+            </button>
+            
+            <div class="text-center mt-3">
+              <a href="./catalogo.html" class="text-decoration-none small fw-semibold">Volver al Catálogo</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
 
   </main>
 
-  <!-- PIE DE PÁGINA (FOOTER) -->
+  <!-- PIE DE PÁGINA -->
   <footer class="pie-sitio mt-auto py-4 shadow-lg border-top border-dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3" style="max-width: var(--ancho-contenedor);">
       <p class="mb-0 fw-medium">&copy; 2026 <span class="fw-bold text-uppercase" style="color: var(--color-acento);">TECNO X</span> - Tecnología en Jujuy</p>
