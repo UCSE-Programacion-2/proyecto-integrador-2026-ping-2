@@ -76,7 +76,7 @@ body:
     attributes:
       label: Definition of Done
       options:
-        - label: "Código revisado (mínimo 1 aprobación en el PR)"
+        - label: "Código revisado (mínimo 2 aprobación en el PR)"
           required: true
         - label: "Tests o pruebas manuales documentadas"
           required: true
