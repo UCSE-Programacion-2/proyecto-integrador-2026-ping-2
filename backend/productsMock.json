@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Auriculares Inalámbricos",
+    "price": 25000,
+    "description": "Auriculares con cancelación de ruido y batería de 20 horas.",
+    "category": "Audio",
+    "stock": 15
+  },
+  {
+    "name": "Teclado Mecánico RGB",
+    "price": 45000,
+    "description": "Teclado gamer formato TKL con switches red.",
+    "category": "Periféricos",
+    "stock": 8
+  },
+  {
+    "name": "Monitor 24 pulgadas 144hz",
+    "price": 180000,
+    "description": "Monitor ideal para gaming competitivo con panel IPS.",
+    "category": "Monitores",
+    "stock": 5
+  }
+]

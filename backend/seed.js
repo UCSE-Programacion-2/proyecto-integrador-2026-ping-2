@@ -1,15 +1,10 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-import Product from './models/product.model.js';
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
+const Product = require('./models/product.model.js');
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const seedDatabase = async () => {
   try {
@@ -32,10 +27,10 @@ const seedDatabase = async () => {
     console.log('Insertando 10 productos de prueba...');
     await Product.insertMany(mockProducts);
 
-    console.log(`✨ ¡Seedeo completado! Se cargaron ${mockProducts.length} productos.`);
+    console.log(`¡Seedeo completado! Se cargaron ${mockProducts.length} productos.`);
     process.exit(0);
   } catch (error) {
-    console.error('❌ Error durante el seedeo:', error.message);
+    console.error('Error durante el seedeo:', error.message);
     process.exit(1);
   }
 };
