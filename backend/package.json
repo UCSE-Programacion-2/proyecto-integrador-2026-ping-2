@@ -18,12 +18,13 @@
     "eslint-plugin-import": "^2.29.1",
     "prettier": "^3.2.5"
   },
-  "dependencies": {
+"dependencies": {
     "express": "^4.22.2",
-    "mongoose": "^8.0.3"
+    "mongoose": "^8.24.3"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs"
 }
+
