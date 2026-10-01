@@ -18,6 +18,7 @@ Este documento te guía para correr backend y frontend según lo que se exige po
 ```bash
 cd backend
 npm install
+npm run seed   # opcional: carga 10 productos de prueba (borra los existentes)
 npm run dev
 ```
 
