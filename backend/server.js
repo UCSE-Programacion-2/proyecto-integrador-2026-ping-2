@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db');
 
 const productRoutes = require('./routes/product.routes');
@@ -14,6 +15,10 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // middleware
+// CORS: permite peticiones del frontend local (Live Server u otro puerto de localhost)
+app.use(cors({
+    origin: [/^http:\/\/localhost:\d+$/, /^http:\/\/127\.0\.0\.1:\d+$/]
+}));
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
