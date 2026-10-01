@@ -6,9 +6,13 @@ export const ROOT = window.location.pathname.includes('/pages/') ? '..' : '.';
 
 const IMAGEN_POR_DEFECTO = 'img/logo.jpg';
 
-// Fetch genérico: agrega headers y maneja errores HTTP
+export const getToken = () => localStorage.getItem('token');
+
+// Fetch genérico: agrega headers, token (si existe) y maneja errores HTTP
 export const apiFetch = async (endpoint, options = {}) => {
   const headers = { 'Content-Type': 'application/json', ...options.headers };
+  const token = getToken();
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   const response = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
   const data = await response.json().catch(() => null);
@@ -22,6 +26,10 @@ export const apiFetch = async (endpoint, options = {}) => {
 // Productos
 export const getProducts = () => apiFetch('/products');
 export const getProductById = (id) => apiFetch(`/products/${id}`);
+
+// Autenticación
+export const loginUser = (email, password) =>
+  apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
 
 // Helpers de presentación
 export const formatPrice = (price) => `$${Number(price).toLocaleString('es-AR')}`;

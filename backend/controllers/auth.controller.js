@@ -37,6 +37,10 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email y contraseña son obligatorios' });
+        }
+
         // 1. Buscar al usuario
         const user = await User.findOne({ email });
         if (!user) {
