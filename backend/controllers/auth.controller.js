@@ -7,6 +7,13 @@ const register = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email y contraseña son obligatorios' });
+        }
+        if (password.length < 8) {
+            return res.status(400).json({ message: 'La contraseña debe tener al menos 8 caracteres' });
+        }
+
         // 1. Verificar si el usuario ya existe
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -27,6 +34,11 @@ const register = async (req, res) => {
         // 201 Created
         res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
+        // 400 si falla la validación del schema (ej. email con formato inválido)
+        if (error.name === 'ValidationError') {
+            const mensaje = Object.values(error.errors)[0].message;
+            return res.status(400).json({ message: mensaje });
+        }
         // 500 Internal Server Error
         res.status(500).json({ message: 'Error en el servidor', error: error.message });
     }
