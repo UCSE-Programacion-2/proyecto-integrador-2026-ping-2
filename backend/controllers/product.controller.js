@@ -42,15 +42,18 @@ const createProduct = async (req, res) => {
 // PUT: Actualizar un producto existente (NUEVO)
 const updateProduct = async (req, res) => {
     try {
-        // { new: true } es para que nos devuelva el producto ya modificado, no el viejo
-        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        // { new: true } devuelve el producto ya modificado; runValidators aplica las reglas del schema
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
         
         if (!updatedProduct) {
             return res.status(404).json({ message: 'Producto no encontrado' });
         }
         res.status(200).json(updatedProduct);
     } catch (error) {
-        res.status(400).json({ message: 'Error al actualizar, ID inválido', error: error.message });
+        res.status(400).json({ message: 'Error al actualizar el producto', error: error.message });
     }
 };
 

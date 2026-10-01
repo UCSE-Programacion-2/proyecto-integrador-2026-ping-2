@@ -22,6 +22,10 @@ npm run seed   # opcional: carga 10 productos de prueba (borra los existentes)
 npm run dev
 ```
 
+Crear, editar y borrar productos (`POST/PUT/DELETE /api/products`) requiere el header
+`Authorization: Bearer <token>`, que se obtiene con `POST /api/auth/login`. El frontend lo envía automáticamente
+después de iniciar sesión.
+
 ## 2) Frontend Vanilla (HTML/CSS/JS)
 
 En `frontend/frontend-vanilla/` la recomendación es usar:
