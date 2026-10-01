@@ -18,7 +18,9 @@ export const apiFetch = async (endpoint, options = {}) => {
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(data?.message || `Error ${response.status}`);
+    const error = new Error(data?.message || `Error ${response.status}`);
+    error.status = response.status;
+    throw error;
   }
   return data;
 };
@@ -26,6 +28,14 @@ export const apiFetch = async (endpoint, options = {}) => {
 // Productos
 export const getProducts = () => apiFetch('/products');
 export const getProductById = (id) => apiFetch(`/products/${id}`);
+
+export const createProduct = (product) =>
+  apiFetch('/products', { method: 'POST', body: JSON.stringify(product) });
+
+export const updateProduct = (id, product) =>
+  apiFetch(`/products/${id}`, { method: 'PUT', body: JSON.stringify(product) });
+
+export const deleteProduct = (id) => apiFetch(`/products/${id}`, { method: 'DELETE' });
 
 // Autenticación
 export const loginUser = (email, password) =>
