@@ -1,5 +1,6 @@
 // Detalle de producto: lee el ?id= de la URL y consulta /api/products/:id
 import { getProductById, formatPrice, getImageUrl, escapeHtml } from './api.js';
+import { agregarAlCarrito, avisarAgregado } from './cart.js';
 
 const contenedor = document.getElementById('detalle-producto');
 
@@ -45,8 +46,42 @@ const renderizarDetalle = (product) => {
       </div>
 
       <p class="text-secondary fs-5-custom mb-3">${escapeHtml(product.description)}</p>
+
+      <div class="pt-1">
+        <div class="row g-3 align-items-center">
+          <div class="col-4 col-sm-3">
+            <div class="input-group">
+              <span class="input-group-text bg-light text-muted small fw-bold">Cant.</span>
+              <input
+                id="cantidad-producto"
+                type="number"
+                class="form-control text-center fw-semibold"
+                value="1"
+                min="1"
+                max="${Math.max(product.stock, 1)}"
+              />
+            </div>
+          </div>
+          <div class="col-8 col-sm-9">
+            <button
+              id="btn-agregar-carrito"
+              type="button"
+              class="btn btn-warning btn-lg w-100 fw-bold text-uppercase shadow-sm py-2"
+              data-id="${escapeHtml(product._id)}"
+              ${sinStock ? 'disabled' : ''}
+            >
+              Añadir al Carrito
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   `;
+
+  document.getElementById('btn-agregar-carrito').addEventListener('click', () => {
+    const cantidad = Number(document.getElementById('cantidad-producto').value) || 1;
+    avisarAgregado(agregarAlCarrito(product, cantidad), product.name);
+  });
 };
 
 const cargarDetalle = async () => {

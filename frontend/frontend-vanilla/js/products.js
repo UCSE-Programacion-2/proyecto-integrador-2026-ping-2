@@ -1,5 +1,6 @@
 // Listado de productos (Home y Catálogo): trae los productos de la API y genera las tarjetas
 import { ROOT, getProducts, formatPrice, getImageUrl, escapeHtml } from './api.js';
+import { agregarAlCarrito, avisarAgregado } from './cart.js';
 
 const contenedor = document.getElementById('lista-productos');
 const contador = document.getElementById('contador-productos');
@@ -24,6 +25,14 @@ const crearTarjeta = (product) => `
           class="btn btn-outline-dark btn-sm w-100 rounded-3 mt-3"
           >Ver Detalle</a
         >
+        <button
+          type="button"
+          class="btn btn-warning btn-sm w-100 rounded-3 mt-2 fw-semibold"
+          data-agregar="${escapeHtml(product._id)}"
+          ${product.stock > 0 ? '' : 'disabled'}
+        >
+          ${product.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+        </button>
       </div>
     </div>
   </div>
@@ -137,6 +146,13 @@ function mostrarProductos() {
 
 const renderizarProductos = async () => {
   if (!contenedor) return;
+
+  contenedor.addEventListener('click', (event) => {
+    const boton = event.target.closest('[data-agregar]');
+    if (!boton) return;
+    const product = productos.find((p) => p._id === boton.dataset.agregar);
+    if (product) avisarAgregado(agregarAlCarrito(product), product.name);
+  });
 
   try {
     productos = await getProducts();
