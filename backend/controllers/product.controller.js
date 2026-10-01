@@ -1,9 +1,14 @@
 const Product = require('../models/product.model');
 
-// GET: Obtener todos los productos
+// GET: Obtener todos los productos (filtro opcional por categoría, sin distinguir mayúsculas)
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
+        const filtro = {};
+        if (req.query.category) {
+            const categoria = req.query.category.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            filtro.category = new RegExp(`^${categoria}$`, 'i');
+        }
+        const products = await Product.find(filtro);
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: 'Error en el servidor', error: error.message });

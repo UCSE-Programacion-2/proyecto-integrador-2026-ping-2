@@ -24,7 +24,7 @@ const seedDatabase = async () => {
     console.log('Limpiando productos existentes...');
     await Product.deleteMany({});
 
-    console.log('Insertando 10 productos de prueba...');
+    console.log(`Insertando ${mockProducts.length} productos de prueba...`);
     await Product.insertMany(mockProducts);
 
     console.log(`¡Seedeo completado! Se cargaron ${mockProducts.length} productos.`);

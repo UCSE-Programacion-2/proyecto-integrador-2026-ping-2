@@ -22,6 +22,11 @@ const productSchema = new mongoose.Schema({
     stock: {
         type: Number,
         default: 0
+    },
+    // URL o ruta relativa al frontend (ej: img/Parlante.jpeg)
+    image: {
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true

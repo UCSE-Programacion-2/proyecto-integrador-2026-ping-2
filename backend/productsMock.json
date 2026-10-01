@@ -1,23 +1,78 @@
 [
   {
-    "name": "Auriculares Inalámbricos",
-    "price": 25000,
-    "description": "Auriculares con cancelación de ruido y batería de 20 horas.",
-    "category": "Audio",
-    "stock": 15
+    "name": "Parlante Bluetooth JBL Flip",
+    "price": 89000,
+    "description": "Parlante portátil resistente al agua, con 12 horas de batería y sonido potente.",
+    "category": "Parlantes",
+    "stock": 10,
+    "image": "img/Parlante.jpeg"
   },
   {
-    "name": "Teclado Mecánico RGB",
+    "name": "Smartwatch Serie 9",
+    "price": 120000,
+    "description": "Reloj inteligente con monitor de ritmo cardíaco, GPS y notificaciones del celular.",
+    "category": "Accesorios",
+    "stock": 6,
+    "image": "img/SmartWatch.jpeg"
+  },
+  {
+    "name": "Micrófono Condensador USB",
+    "price": 65000,
+    "description": "Micrófono ideal para streaming, podcasts y videollamadas. Conexión USB plug & play.",
+    "category": "Accesorios",
+    "stock": 4,
+    "image": "img/microfono.jpeg"
+  },
+  {
+    "name": "Notebook HP 15",
+    "price": 980000,
+    "description": "Notebook 15.6\" con procesador Intel Core i5, 16 GB de RAM y SSD de 512 GB.",
+    "category": "Computación",
+    "stock": 3,
+    "image": "img/not_hp.jpeg"
+  },
+  {
+    "name": "Smartband Xiaomi Band 8",
     "price": 45000,
-    "description": "Teclado gamer formato TKL con switches red.",
-    "category": "Periféricos",
+    "description": "Pulsera inteligente con pantalla AMOLED, medición de sueño y 16 días de batería.",
+    "category": "Accesorios",
+    "stock": 15,
+    "image": "img/smartband.jpeg"
+  },
+  {
+    "name": "Tablet Samsung Galaxy Tab A9",
+    "price": 380000,
+    "description": "Tablet de 11\" con 128 GB de almacenamiento, ideal para estudio y entretenimiento.",
+    "category": "Computación",
+    "stock": 5,
+    "image": "img/tablet_sam.jpeg"
+  },
+  {
+    "name": "Celular Redmi 15C",
+    "price": 290000,
+    "description": "Pantalla de 6.9\", 256 GB de almacenamiento y batería de 6000 mAh.",
+    "category": "Celulares",
     "stock": 8
   },
   {
-    "name": "Monitor 24 pulgadas 144hz",
-    "price": 180000,
-    "description": "Monitor ideal para gaming competitivo con panel IPS.",
-    "category": "Monitores",
-    "stock": 5
+    "name": "Celular Motorola G86",
+    "price": 520000,
+    "description": "Cámara de 50 MP, pantalla pOLED de 120 Hz y carga rápida de 30 W.",
+    "category": "Celulares",
+    "stock": 0
+  },
+  {
+    "name": "Auriculares Inalámbricos",
+    "price": 25000,
+    "description": "Auriculares con cancelación de ruido y batería de 20 horas.",
+    "category": "Auriculares",
+    "stock": 12
+  },
+  {
+    "name": "Funda Silicona Antigolpes",
+    "price": 9000,
+    "description": "Funda de silicona con bordes reforzados, compatible con los modelos más vendidos.",
+    "category": "Fundas",
+    "stock": 30
   }
 ]
