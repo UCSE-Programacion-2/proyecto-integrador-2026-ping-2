@@ -21,6 +21,7 @@ export const apiFetch = async (endpoint, options = {}) => {
 
 // Productos
 export const getProducts = () => apiFetch('/products');
+export const getProductById = (id) => apiFetch(`/products/${id}`);
 
 // Helpers de presentación
 export const formatPrice = (price) => `$${Number(price).toLocaleString('es-AR')}`;
