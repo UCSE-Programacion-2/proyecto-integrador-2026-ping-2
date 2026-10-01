@@ -11,8 +11,9 @@ Este documento te guía para correr backend y frontend según lo que se exige po
 
 1. Entrar a `backend/`
 2. Crear archivo `backend/.env` usando `backend/.env.example`:
-   - `PORT`
-   - `MONGODB_URI`
+   - `PORT` (el frontend espera la API en `http://localhost:3000/api`, ver `frontend/frontend-vanilla/js/api.js`)
+   - `MONGO_URI`
+   - `JWT_SECRET` (firma los tokens del login)
 3. Ejecutar:
 ```bash
 cd backend

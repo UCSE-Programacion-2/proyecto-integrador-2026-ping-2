@@ -4,6 +4,7 @@
 # Variables de entorno (no subir secretos)
 **/.env
 **/.env.*
+!**/.env.example
 **/.env.*.*
 
 # Archivos del sistema
