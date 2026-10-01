@@ -10,7 +10,7 @@ const {
 } = require('../controllers/product.controller');
 const { validateProduct } = require('../middlewares/product.validator');
 
-// GET /api/products
+// GET /api/products (acepta ?category=<categoria>)
 router.get('/', getProducts);
 
 // GET /api/products/:id
