@@ -31,6 +31,9 @@ export const getProductById = (id) => apiFetch(`/products/${id}`);
 export const loginUser = (email, password) =>
   apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
 
+export const registerUser = (email, password) =>
+  apiFetch('/auth/register', { method: 'POST', body: JSON.stringify({ email, password }) });
+
 // Helpers de presentación
 export const formatPrice = (price) => `$${Number(price).toLocaleString('es-AR')}`;
 
