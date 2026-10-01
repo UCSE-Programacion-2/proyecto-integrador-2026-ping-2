@@ -16,6 +16,10 @@
     <!-- Estilos del equipo (Notar el ../ para salir de la carpeta pages) -->
     <link rel="stylesheet" href="../css/variables.css" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <!-- NAVBAR / ENCABEZADO -->
@@ -112,104 +116,11 @@
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="p-3">
-                  <div class="d-flex align-items-center gap-3">
-                    <img
-                      src="../img/not_hp.jpeg"
-                      alt="Notebook HP"
-                      class="rounded-3 object-fit-cover"
-                      style="width: 60px; height: 60px"
-                    />
-                    <div>
-                      <h2 class="h6 fw-bold mb-0 text-dark">Notebook HP</h2>
-                      <small class="text-muted text-uppercase">Notebooks</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center fw-medium">$899.999</td>
-                <td class="text-center">1</td>
-                <td class="text-center fw-bold text-success">$899.999</td>
-                <td class="text-end pe-3">
-                  <button class="btn btn-sm btn-link text-danger">
-                    <i class="bi bi-trash3-fill"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td class="p-3">
-                  <div class="d-flex align-items-center gap-3">
-                    <img
-                      src="../img/SmartWatch.jpeg"
-                      alt="Smartwatch"
-                      class="rounded-3 object-fit-cover"
-                      style="width: 60px; height: 60px"
-                    />
-                    <div>
-                      <h2 class="h6 fw-bold mb-0 text-dark">Smartwatch Urbano Pro</h2>
-                      <small class="text-muted text-uppercase">Accesorios</small>
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center fw-medium">$150.000</td>
-                <td class="text-center">2</td>
-                <td class="text-center fw-bold text-success">$300.000</td>
-                <td class="text-end pe-3">
-                  <button class="btn btn-sm btn-link text-danger">
-                    <i class="bi bi-trash3-fill"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+            <!-- Filas generadas por js/cart.js -->
+            <tbody id="carrito-items"></tbody>
           </table>
-          <div class="d-block d-md-none">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-3 p-3 bg-white">
-              <div class="d-flex gap-3 align-items-center">
-                <img
-                  src="../img/not_hp.jpeg"
-                  alt="Notebook HP"
-                  class="rounded-3 object-fit-cover"
-                  style="width: 70px; height: 70px"
-                />
-                <div class="flex-grow-1">
-                  <span class="text-muted small text-uppercase">Notebooks</span>
-                  <h2 class="h6 fw-bold text-dark mb-1">Notebook HP</h2>
-                  <div class="d-flex justify-content-between align-items-center mt-2">
-                    <span class="small text-secondary">Cant: 1</span>
-                    <span class="fw-bold text-success">$899.999</span>
-                  </div>
-                </div>
-                <button class="btn btn-link text-danger p-0 ms-2"><i class="bi bi-trash3-fill fs-5"></i></button>
-                  <i class="bi bi-trash3-fill fs-5"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-3 p-3 bg-white">
-              <div class="d-flex gap-3 align-items-center">
-                <img
-                  src="../img/SmartWatch.jpeg"
-                  alt="Smartwatch"
-                  class="rounded-3 object-fit-cover"
-                  style="width: 70px; height: 70px"
-                />
-                <div class="flex-grow-1">
-                  <span class="text-muted small text-uppercase">Accesorios</span>
-                  <h2 class="h6 fw-bold text-dark mb-1">Smartwatch Urbano Pro</h2>
-                  <div class="d-flex justify-content-between align-items-center mt-2">
-                    <span class="small text-secondary"
-                      >Cant: 2 <small class="text-muted">($150.000 c/u)</small></span
-                    >
-                    <span class="fw-bold text-success">$300.000</span>
-                  </div>
-                </div>
-                <button class="btn btn-link text-danger p-0 ms-2">
-                  <i class="bi bi-trash3-fill fs-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+          <!-- Versión mobile, generada por js/cart.js -->
+          <div id="carrito-items-mobile" class="d-block d-md-none"></div>
         </div>
         <div class="col-12 col-lg-4">
           <div
@@ -219,8 +130,8 @@
             <h3 class="h5 fw-bold text-uppercase mb-4">Resumen de Compra</h3>
 
             <div class="d-flex justify-content-between mb-2 small text-muted">
-              <span>Subtotal (3 productos)</span>
-              <span>$1.199.999</span>
+              <span id="resumen-cantidad">Subtotal (0 productos)</span>
+              <span id="resumen-subtotal">$0</span>
             </div>
             <div class="d-flex justify-content-between mb-3 small text-muted">
               <span>Envío (San Salvador de Jujuy)</span>
@@ -231,10 +142,11 @@
 
             <div class="d-flex justify-content-between align-items-center mb-4">
               <span class="fw-bold text-uppercase">Total Final</span>
-              <span class="fs-4 fw-extrabold text-success">$1.199.999</span>
+              <span id="resumen-total" class="fs-4 fw-extrabold text-success">$0</span>
             </div>
 
             <a
+              id="btn-continuar-compra"
               href="./checkout.html"
               class="btn btn-warning btn-lg w-100 rounded-3 fw-bold shadow-sm py-2 fs-6 text-uppercase"
             >
@@ -278,5 +190,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="../js/cart.js"></script>
+    <script type="module" src="../js/navbar.js"></script>
   </body>
 </html>

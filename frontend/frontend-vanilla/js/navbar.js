@@ -1,10 +1,12 @@
 // Navbar dinámico: muestra opciones distintas según haya sesión iniciada o no
 import { ROOT, escapeHtml } from './api.js';
 import { estaLogueado, cerrarSesion } from './auth.js';
+import { contarItems } from './cart.js';
 
 const menu = document.querySelector('#navbarNav .navbar-nav');
 
 const itemAdmin = menu?.querySelector('a[href$="admin.html"]')?.closest('li');
+const linkCarrito = menu?.querySelector('a[href$="carrito.html"]');
 
 const crearItem = (html) => {
   const li = document.createElement('li');
@@ -36,6 +38,22 @@ const renderizarSesion = () => {
   }
 };
 
+// Contador de productos al lado del link "Carrito"
+const badgeCarrito = document.createElement('span');
+badgeCarrito.className = 'badge rounded-pill bg-warning text-dark ms-1';
+
+const actualizarBadge = () => {
+  const cantidad = contarItems();
+  badgeCarrito.textContent = cantidad;
+  badgeCarrito.classList.toggle('d-none', cantidad === 0);
+};
+
 if (menu) {
   renderizarSesion();
+  if (linkCarrito) {
+    linkCarrito.appendChild(badgeCarrito);
+    actualizarBadge();
+    window.addEventListener('carrito-actualizado', actualizarBadge);
+    window.addEventListener('storage', actualizarBadge);
+  }
 }
