@@ -1,10 +1,10 @@
 :root {
-  --negro: #0A0A0B;
+  --negro: #0a0a0b;
   --gris-oscuro: #202225;
-  --gris: #3C3F45;
-  --amarillo: #FFD34D;
-  --crema: #FFF4CF;
-  --blanco: #FFFFFF;
+  --gris: #3c3f45;
+  --amarillo: #ffd34d;
+  --crema: #fff4cf;
+  --blanco: #ffffff;
 
   --color-principal: var(--negro);
   --color-secundario: var(--gris-oscuro);
