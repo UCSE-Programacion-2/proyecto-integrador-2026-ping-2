@@ -1,0 +1,16 @@
+# Blueprint de Render para el backend (Express + MongoDB Atlas)
+services:
+  - type: web
+    name: tecnox-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: MONGO_URI
+        sync: false # URI de MongoDB Atlas, se carga desde el panel de Render
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false # URL pública del frontend en Vercel, ej: https://mi-tienda.vercel.app
