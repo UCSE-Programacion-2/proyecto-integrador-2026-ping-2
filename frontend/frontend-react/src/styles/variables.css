@@ -1,0 +1,25 @@
+:root {
+  --negro: #0A0A0B;
+  --gris-oscuro: #202225;
+  --gris: #3C3F45;
+  --amarillo: #FFD34D;
+  --crema: #FFF4CF;
+  --blanco: #FFFFFF;
+
+  --color-principal: var(--negro);
+  --color-secundario: var(--gris-oscuro);
+  --color-acento: var(--amarillo);
+  --color-fondo: var(--crema);
+  --color-texto: var(--gris-oscuro);
+  --color-texto-claro: var(--crema);
+
+  --fuente-principal: Arial, Helvetica, sans-serif;
+
+  --borde-suave: 8px;
+  --borde-medio: 14px;
+
+  --sombra-suave: 0 3px 10px rgba(10, 10, 11, 0.12);
+  --sombra-media: 0 8px 20px rgba(10, 10, 11, 0.18);
+
+  --ancho-contenedor: 1200px;
+}
