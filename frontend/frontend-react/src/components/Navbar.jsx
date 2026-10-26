@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const LINKS = [
   { to: '/', label: 'Inicio', end: true },
@@ -9,6 +10,7 @@ const LINKS = [
 
 export default function Navbar() {
   const [abierto, setAbierto] = useState(false);
+  const { count } = useCart();
   const cerrar = () => setAbierto(false);
 
   return (
@@ -46,6 +48,9 @@ export default function Navbar() {
               <li className='nav-item' key={to}>
                 <NavLink className='nav-link fw-semibold' to={to} end={end} onClick={cerrar}>
                   {label}
+                  {to === '/carrito' && count > 0 && (
+                    <span className='badge rounded-pill bg-warning text-dark ms-1'>{count}</span>
+                  )}
                 </NavLink>
               </li>
             ))}
