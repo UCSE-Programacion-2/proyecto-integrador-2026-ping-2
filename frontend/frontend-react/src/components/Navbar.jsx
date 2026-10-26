@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 
 const LINKS = [
   { to: '/', label: 'Inicio', end: true },
   { to: '/catalogo', label: 'Catálogo' },
   { to: '/carrito', label: 'Carrito' },
+  { to: '/checkout', label: 'Checkout' },
 ];
 
 export default function Navbar() {
   const [abierto, setAbierto] = useState(false);
   const { count } = useCart();
+  const { user, isAdmin, logout } = useAuth();
   const cerrar = () => setAbierto(false);
 
   return (
@@ -54,6 +57,55 @@ export default function Navbar() {
                 </NavLink>
               </li>
             ))}
+            {isAdmin && (
+              <li className='nav-item'>
+                <NavLink
+                  className='nav-link fw-semibold btn btn-sm btn-outline px-3 ms-lg-2 mt-2 mt-lg-0'
+                  to='/admin'
+                  onClick={cerrar}
+                >
+                  Admin
+                </NavLink>
+              </li>
+            )}
+            {user ? (
+              <>
+                <li className='nav-item d-flex align-items-center justify-content-center'>
+                  <span className='small px-2' style={{ color: 'var(--color-texto-claro)' }}>
+                    Hola, <strong>{user.email.split('@')[0]}</strong>
+                  </span>
+                </li>
+                <li className='nav-item d-flex align-items-center justify-content-center'>
+                  <button
+                    type='button'
+                    className='btn btn-sm btn-outline-light px-3 ms-lg-2'
+                    onClick={() => {
+                      logout();
+                      cerrar();
+                    }}
+                  >
+                    Cerrar sesión
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className='nav-item'>
+                  <NavLink className='nav-link fw-semibold' to='/login' onClick={cerrar}>
+                    Ingresar
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <Link
+                    className='btn btn-sm btn-warning fw-semibold text-dark px-3 ms-lg-2 mt-2 mt-lg-0'
+                    to='/registro'
+                    onClick={cerrar}
+                  >
+                    Registrarse
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>

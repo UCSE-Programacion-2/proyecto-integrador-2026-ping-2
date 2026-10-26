@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import ProtectedRoute from './components/ProtectedRoute';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -24,7 +25,9 @@ export default function App() {
           <Route path='registro' element={<Register />} />
           <Route path='carrito' element={<Cart />} />
           <Route path='checkout' element={<Checkout />} />
-          <Route path='admin' element={<Admin />} />
+          <Route element={<ProtectedRoute requireAdmin />}>
+            <Route path='admin' element={<Admin />} />
+          </Route>
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

@@ -105,7 +105,6 @@ export default function Checkout() {
                   'col-12 col-sm-5',
                 )}
                 <div className='col-12 col-sm-4'>
-                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label
                     htmlFor='provincia'
                     className='form-label small fw-semibold text-secondary'
