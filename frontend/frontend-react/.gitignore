@@ -22,3 +22,6 @@ build/
 # Vite
 .vite/
 *.local
+
+# Variables de entorno locales
+.env
