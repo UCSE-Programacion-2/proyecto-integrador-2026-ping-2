@@ -25,6 +25,7 @@
     "react/prop-types": "warn",
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
+    "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "warn",
