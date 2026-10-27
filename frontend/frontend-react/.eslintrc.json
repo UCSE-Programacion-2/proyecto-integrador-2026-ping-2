@@ -25,6 +25,7 @@
     "react/prop-types": "warn",
     "import/prefer-default-export": "off",
     "no-unused-vars": "warn",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "warn",
     "react/require-default-props": "off",
