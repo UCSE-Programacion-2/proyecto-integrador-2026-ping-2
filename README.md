@@ -1,6 +1,6 @@
 Tablero de GitHub Projects: [Ping - Proyecto Integrador](https://github.com/orgs/UCSE-Programacion-2/projects/30)
 
-# [Nombre del Proyecto / Equipo] - Programación II 2026
+# Tecno X - Programación II 2026
 
 ## 👥 Integrantes
 * **Sadir, Martín** - [GitHub Profile](https://github.com/martinSadir21)
@@ -27,8 +27,8 @@ Tablero de GitHub Projects: [Ping - Proyecto Integrador](https://github.com/orgs
 * Checklist docentes: [docs/sprint-review/sprint-review-checklist-docentes.md](docs/sprint-review/sprint-review-checklist-docentes.md)
 
 ## 🚀 Deploy y evidencias (Sprint 4)
-* **URL de Producción Frontend:** *Próximamente*
-* **URL de Producción Backend:** *Próximamente*
+* **URL de Producción Frontend:** https://tecnox-tienda.vercel.app
+* **URL de Producción Backend:** https://tecnox-api.onrender.com (API en `/api`)
 * **Video de respaldo:** *Link (Loom/Youtube/Drive)*
 
 ## 🧰 Stack final
