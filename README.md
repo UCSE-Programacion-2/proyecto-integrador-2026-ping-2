@@ -4,7 +4,7 @@ Tablero de GitHub Projects: [Ping - Proyecto Integrador](https://github.com/orgs
 
 ## 👥 Integrantes
 * **Sadir, Martín** - [GitHub Profile](https://github.com/martinSadir21)
-* **Aguirre, Matías** - [GitHub Profile](https://github.com/Matias1099)
+* **Matos, Francisco Demian** - [GitHub Profile](https://github.com/MacetaXL)
 * **Campos, Matias** - [GitHub Profile](https://github.com/mat1asz)
 
 ## 🏢 Cliente Real Elegido
