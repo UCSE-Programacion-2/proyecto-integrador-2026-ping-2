@@ -5,9 +5,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/variables.css';
 import './styles/styles.css';
 import App from './App';
+import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <AuthProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </AuthProvider>
   </StrictMode>,
 );

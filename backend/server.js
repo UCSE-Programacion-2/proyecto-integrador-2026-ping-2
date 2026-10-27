@@ -15,9 +15,14 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 // middleware
-// CORS: permite peticiones del frontend local (Live Server u otro puerto de localhost)
+// CORS: permite el frontend local (cualquier puerto de localhost) y los dominios
+// publicados indicados en CORS_ORIGINS (lista separada por comas, sin barra final)
+const allowedOrigins = (process.env.CORS_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 app.use(cors({
-    origin: [/^http:\/\/localhost:\d+$/, /^http:\/\/127\.0\.0\.1:\d+$/]
+    origin: [/^http:\/\/localhost:\d+$/, /^http:\/\/127\.0\.0\.1:\d+$/, ...allowedOrigins]
 }));
 app.use(express.json());
 

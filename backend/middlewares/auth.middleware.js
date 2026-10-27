@@ -22,4 +22,13 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-module.exports = { verifyToken };
+// Debe usarse después de verifyToken: solo deja pasar a usuarios con rol admin
+const isAdmin = (req, res, next) => {
+    if (req.user?.role !== 'admin') {
+        // 403 Forbidden
+        return res.status(403).json({ message: 'Acceso denegado. Se requiere rol de administrador.' });
+    }
+    next();
+};
+
+module.exports = { verifyToken, isAdmin };

@@ -14,6 +14,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'La contraseña es obligatoria'],
         minlength: [8, 'La contraseña debe tener al menos 8 caracteres']
+    },
+    // 'admin' accede al panel y puede crear/editar/borrar productos
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 }, {
     timestamps: true // agrega automáticamente campos createdAt y updatedAt
