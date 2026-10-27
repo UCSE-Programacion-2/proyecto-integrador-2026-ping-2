@@ -30,3 +30,18 @@ Tablero de GitHub Projects: [Ping - Proyecto Integrador](https://github.com/orgs
 * **URL de Producción Frontend:** *Próximamente*
 * **URL de Producción Backend:** *Próximamente*
 * **Video de respaldo:** *Link (Loom/Youtube/Drive)*
+
+## 🧰 Stack final
+* **Frontend:** React 18 + Vite + React Router DOM + Bootstrap 5 (`frontend/frontend-react`). La versión del Sprint 3 se conserva en `frontend/frontend-vanilla`.
+* **Backend:** Node.js + Express + MongoDB (Mongoose) + JWT (`backend`), con roles `user` / `admin`.
+* **Deploy:** Frontend en Vercel (o Netlify), backend en Render (`render.yaml`), base de datos en MongoDB Atlas.
+
+## ▶️ Cómo ejecutar en local
+1. **Backend:** `cd backend && npm install`, copiar `.env.example` a `.env`, completar `MONGO_URI` y `JWT_SECRET` y ejecutar `npm run seed` (carga productos y el usuario admin definido en `ADMIN_EMAIL`/`ADMIN_PASSWORD`) y luego `npm run dev`.
+2. **Frontend:** `cd frontend/frontend-react && npm install`, copiar `.env.example` a `.env` y ejecutar `npm run dev`.
+
+## ☁️ Pasos de deploy
+1. **MongoDB Atlas:** crear un cluster gratuito, un usuario de base de datos y permitir acceso de red (`0.0.0.0/0`). Copiar la URI en `MONGO_URI`.
+2. **Backend en Render:** nuevo *Blueprint* apuntando a este repo (usa `render.yaml`). Cargar `MONGO_URI` y `CORS_ORIGINS` (URL del frontend, sin barra final). Para crear datos iniciales, ejecutar `npm run seed` en la Shell de Render con `ADMIN_EMAIL` y `ADMIN_PASSWORD` definidos.
+3. **Frontend en Vercel:** importar el repo con *Root Directory* `frontend/frontend-react` y variable `VITE_API_URL=https://<backend>.onrender.com/api`.
+4. Volver a Render y completar `CORS_ORIGINS` con la URL final de Vercel. Ver [docs/sprint-4/deploy-checklist.md](docs/sprint-4/deploy-checklist.md).

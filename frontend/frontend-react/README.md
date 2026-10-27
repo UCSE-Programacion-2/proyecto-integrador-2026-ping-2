@@ -1,58 +1,47 @@
-# Frontend React
+# Frontend React (Vite) - TECNO X
 
-## Objetivo
-Implementar el mismo producto que en `frontend-vanilla`, pero con React, manteniendo el mismo contrato con el backend.
-
-## Sprint cubierto
-
-- `docs/sprint-4/`: SPA con React (Vite) + React Router DOM + rutas protegidas + deploy + Demo Day.
-
-## Consigna (React)
-
-- Consumir la misma API del backend (mismos endpoints).
-- Implementar los mismos flujos principales (pantallas y operaciones).
-- Comportamiento equivalente en:
-  - loading
-  - errores del backend
-  - estados vacíos (sin datos)
-
-## Estructura sugerida
-
-Orientativa (adapten al template que usen, por ejemplo Vite):
-
-- `src/`
-  - `main.jsx`
-  - `App.jsx` (rutas/navegación)
-  - `api/` o `services/` (cliente para consumir endpoints)
-  - `pages/` (pantallas)
-  - `components/` (componentes reutilizables)
-  - `styles/` (estilos)
-  - `utils/` (helpers)
-
-## Configuración
-
-Documentá cómo setear la URL del backend:
-
-- ejemplo: `VITE_API_URL` (si usan Vite)
-- o una constante en `src/config.js`
+SPA de la tienda construida con React 18, Vite y React Router DOM. Consume la misma API del backend que `frontend-vanilla` (que se mantiene como referencia del Sprint 3).
 
 ## Ejecución
 
-En este README tenés que incluir:
+```bash
+cd frontend/frontend-react
+npm install
+cp .env.example .env   # y ajustar VITE_API_URL
+npm run dev            # http://localhost:5173
+npm run build          # genera dist/
+```
 
-1. `npm install`
-2. `npm run dev` (o comando equivalente)
-3. Variables necesarias (si aplica)
+## Variables de entorno
 
-## Checklist
+| Variable | Descripción | Ejemplo |
+| --- | --- | --- |
+| `VITE_API_URL` | URL base de la API (incluye `/api`, sin barra final) | `http://localhost:3000/api` |
 
-- [ ] La UI refleja el estado de la API (loading/error/empty).
-- [ ] La navegación cubre el flujo completo.
-- [ ] Se mantiene paridad con `frontend-vanilla` (mismo comportamiento funcional).
+Vite incrusta la variable **al compilar**: si la cambiás en Vercel hay que volver a desplegar.
 
-## Criterios clave (según el enunciado)
+## Estructura
 
-- React Router DOM (SPA sin recargas al navegar).
-- Componentización (Navbar, ProductCard, Footer, etc.).
-- Rutas protegidas para admin (solo si el usuario tiene rol).
+- `src/main.jsx`: punto de entrada, providers globales (`AuthProvider`, `CartProvider`).
+- `src/App.jsx`: rutas públicas y protegidas.
+- `src/components/`: `Navbar`, `Footer`, `Layout`, `ProductCard`, `CartItem`, `ProtectedRoute`, `ProductFormModal`, etc.
+- `src/pages/`: `Home`, `Catalog`, `ProductDetail`, `Login`, `Register`, `Cart`, `Checkout`, `Admin`, `NotFound`.
+- `src/context/`: `AuthContext` (sesión y rol) y `CartContext` (carrito global persistido en `localStorage`).
+- `src/services/api.js`: cliente HTTP (token JWT, errores).
+- `src/hooks/`: `useProducts`, `useAddToCart`.
 
+## Rutas
+
+| Ruta | Acceso |
+| --- | --- |
+| `/`, `/catalogo`, `/producto/:id`, `/carrito`, `/checkout` | Público |
+| `/login`, `/registro` | Público |
+| `/admin` | Solo usuarios con rol `admin` (`ProtectedRoute requireAdmin`) |
+
+El rol viene del backend (`user.role` en la respuesta de `POST /api/auth/login`). La protección de la ruta en el front es solo de experiencia de usuario: el backend valida el rol en cada escritura de productos.
+
+## Deploy (Vercel o Netlify)
+
+- Root directory: `frontend/frontend-react`, build `npm run build`, output `dist`.
+- Variable: `VITE_API_URL=https://<tu-backend>.onrender.com/api`.
+- `vercel.json` y `public/_redirects` ya incluyen el rewrite para que React Router resuelva rutas al recargar.
