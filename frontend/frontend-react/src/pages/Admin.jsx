@@ -159,9 +159,9 @@ export default function Admin() {
   };
 
   return (
-    <>
+    <div className='contenedor pagina'>
       <div className='d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4'>
-        <h1 className='h2 fw-bold text-uppercase mb-0'>Panel de Administración</h1>
+        <h1 className='titulo-pagina mb-0'>Panel de administración</h1>
         <button type='button' className='btn btn-warning fw-bold' onClick={() => setEditando(null)}>
           Crear producto
         </button>
@@ -170,15 +170,15 @@ export default function Admin() {
       <div className='row g-3 mb-4'>
         {stats.map(([label, valor]) => (
           <div className='col-12 col-md-4' key={label}>
-            <div className='card border-0 shadow-sm rounded-4 p-3 bg-white text-center'>
-              <span className='text-muted small text-uppercase'>{label}</span>
+            <div className='card border-0 rounded-4 p-3 bg-white text-center'>
+              <span className='text-secondary small'>{label}</span>
               <strong className='h3 mb-0'>{valor}</strong>
             </div>
           </div>
         ))}
       </div>
 
-      <div className='card border-0 shadow-sm rounded-4 p-3 bg-white'>
+      <div className='card border-0 rounded-4 p-3 bg-white'>
         <input
           type='search'
           className='form-control mb-3'
@@ -197,6 +197,6 @@ export default function Admin() {
           onClose={() => setEditando(undefined)}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -1,25 +1,61 @@
+@font-face {
+  font-family: Archivo;
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url('../assets/fonts/archivo-latin.woff2') format('woff2');
+}
+
 :root {
+  /* Materiales del local: la pared crema, el cartel negro, las letras claras y el amarillo de acción */
   --negro: #0a0a0b;
+  --negro-suave: #1a1b1e;
   --gris-oscuro: #202225;
   --gris: #3c3f45;
+  --gris-suave: #5e6066;
   --amarillo: #ffd34d;
+  --amarillo-hover: #f5c52e;
   --crema: #fff4cf;
-  --blanco: #ffffff;
-
+  --crema-hundida: #f3e5b6;
+  --crema-clara: #fffaea;
+  --blanco: #fff;
   --color-principal: var(--negro);
   --color-secundario: var(--gris-oscuro);
   --color-acento: var(--amarillo);
   --color-fondo: var(--crema);
-  --color-texto: var(--gris-oscuro);
+  --color-texto: var(--negro);
   --color-texto-claro: var(--crema);
+  --fuente-principal: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --fuente-principal: Arial, Helvetica, sans-serif;
+  /* Cinco tamaños de lectura y uno de apoyo; la marca escala con el cartel */
+  --t-titulo: clamp(2rem, 3.2vw, 3rem);
+  --t-seccion: clamp(1.625rem, 2.4vw, 2.25rem);
+  --t-lead: 1.25rem;
+  --t-texto: 1.0625rem;
+  --t-chico: 0.875rem;
 
+  /* Una sola forma de control (píldora, como el disco) y un solo radio de panel */
+  --radio-panel: 16px;
+  --radio-control: 999px;
   --borde-suave: 8px;
-  --borde-medio: 14px;
+  --borde-medio: 16px;
+  --margen: clamp(16px, 3.4vw, 48px);
+  --alto-nav: 68px;
+  --espacio-seccion: clamp(56px, 10vw, 120px);
+  --ancho-contenedor: 1344px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
-  --sombra-suave: 0 3px 10px rgba(10, 10, 11, 0.12);
-  --sombra-media: 0 8px 20px rgba(10, 10, 11, 0.18);
-
-  --ancho-contenedor: 1200px;
+  /* Bootstrap toma la tipografía, los links y el foco de la marca */
+  --bs-body-font-family: var(--fuente-principal);
+  --bs-body-color: var(--color-texto);
+  --bs-body-bg: var(--crema);
+  --bs-secondary-color: var(--gris-suave);
+  --bs-link-color: var(--negro);
+  --bs-link-color-rgb: 10, 10, 11;
+  --bs-link-hover-color: var(--gris);
+  --bs-link-hover-color-rgb: 60, 63, 69;
+  --bs-border-radius: 12px;
+  --bs-focus-ring-color: rgb(255 211 77 / 55%);
 }

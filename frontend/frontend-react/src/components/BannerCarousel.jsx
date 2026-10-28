@@ -15,7 +15,7 @@ export default function BannerCarousel({ banners }) {
   const mover = paso => setActual(i => (i + paso + banners.length) % banners.length);
 
   return (
-    <div className='carousel slide'>
+    <div className='carousel slide carrusel'>
       <div className='carousel-indicators'>
         {banners.map((banner, i) => (
           <button
@@ -27,7 +27,7 @@ export default function BannerCarousel({ banners }) {
           />
         ))}
       </div>
-      <div className='carousel-inner rounded-4 shadow-sm bg-dark'>
+      <div className='carousel-inner rounded-4 bg-dark'>
         {banners.map((banner, i) => (
           <div className={`carousel-item ${i === actual ? 'active' : ''}`} key={banner.src}>
             <img src={banner.src} className='banner-img' alt={banner.alt} />

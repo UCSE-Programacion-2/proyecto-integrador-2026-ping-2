@@ -1,27 +1,41 @@
 import PropTypes from 'prop-types';
 
-export default function QuantitySelector({ cantidad, onChange }) {
+const Trazo = ({ d }) => (
+  <svg
+    viewBox='0 0 24 24'
+    width='18'
+    height='18'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2.2'
+    strokeLinecap='round'
+    aria-hidden='true'
+  >
+    <path d={d} />
+  </svg>
+);
+
+Trazo.propTypes = { d: PropTypes.string.isRequired };
+
+export default function QuantitySelector({ cantidad, maximo, onChange }) {
   return (
-    <div
-      className='input-group input-group-sm justify-content-center flex-nowrap'
-      style={{ width: 110 }}
-    >
+    <div className='cantidad' role='group' aria-label='Cantidad'>
       <button
-        className='btn btn-outline-secondary'
         type='button'
-        aria-label='Restar'
+        aria-label='Restar uno'
+        disabled={cantidad <= 1}
         onClick={() => onChange(cantidad - 1)}
       >
-        -
+        <Trazo d='M5 12h14' />
       </button>
-      <span className='input-group-text bg-white fw-semibold'>{cantidad}</span>
+      <output aria-live='polite'>{cantidad}</output>
       <button
-        className='btn btn-outline-secondary'
         type='button'
-        aria-label='Sumar'
+        aria-label='Sumar uno'
+        disabled={Boolean(maximo) && cantidad >= maximo}
         onClick={() => onChange(cantidad + 1)}
       >
-        +
+        <Trazo d='M5 12h14M12 5v14' />
       </button>
     </div>
   );
@@ -29,5 +43,6 @@ export default function QuantitySelector({ cantidad, onChange }) {
 
 QuantitySelector.propTypes = {
   cantidad: PropTypes.number.isRequired,
+  maximo: PropTypes.number,
   onChange: PropTypes.func.isRequired,
 };

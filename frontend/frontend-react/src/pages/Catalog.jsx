@@ -2,12 +2,13 @@ import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import Message from '../components/Message';
+import ProductGridLoading from '../components/ProductGridLoading';
 import useProducts from '../hooks/useProducts';
 import useAddToCart from '../hooks/useAddToCart';
 import { formatPrice, normalizar } from '../utils/format';
 
 export default function Catalog() {
-  const { products, loading, error } = useProducts();
+  const { products, loading, lento, error } = useProducts();
   const agregar = useAddToCart();
   const [searchParams] = useSearchParams();
 
@@ -58,7 +59,7 @@ export default function Catalog() {
   };
 
   const renderProductos = () => {
-    if (loading) return <Message>Cargando productos...</Message>;
+    if (loading) return <ProductGridLoading cantidad={6} lento={lento} />;
     if (error) return <Message variant='danger'>{error}</Message>;
     if (visibles.length === 0) {
       return (
@@ -75,80 +76,79 @@ export default function Catalog() {
   };
 
   return (
-    <>
-      <h1 className='h2 fw-bold text-uppercase mb-4'>Catálogo</h1>
-      <div className='row g-4'>
-        <aside className='col-12 col-lg-3'>
-          <div className='card border-0 shadow-sm rounded-4 p-4 bg-white'>
-            <h2 className='h6 fw-bold text-uppercase mb-3'>Buscar</h2>
-            <input
-              type='search'
-              className='form-control mb-4'
-              placeholder='Nombre o categoría'
-              value={busqueda}
-              onChange={event => setBusqueda(event.target.value)}
-            />
+    <div className='contenedor pagina'>
+      <h1 className='titulo-pagina'>Catálogo</h1>
 
-            <h2 className='h6 fw-bold text-uppercase mb-3'>Categorías</h2>
-            {categorias.map(categoria => (
-              <div className='form-check mb-2' key={categoria}>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  id={`cat-${categoria}`}
-                  checked={categoriasActivas.includes(categoria)}
-                  onChange={() => alternarCategoria(categoria)}
-                />
-                <label className='form-check-label text-dark' htmlFor={`cat-${categoria}`}>
-                  {categoria}
-                </label>
-              </div>
-            ))}
+      <div className='buscador'>
+        <label htmlFor='buscar' className='visually-hidden'>
+          Buscar productos
+        </label>
+        <i className='bi bi-search buscador-icono' aria-hidden='true' />
+        <input
+          id='buscar'
+          type='search'
+          className='form-control'
+          placeholder='Buscá por nombre o categoría'
+          value={busqueda}
+          onChange={event => setBusqueda(event.target.value)}
+        />
+      </div>
 
-            <label htmlFor='rango-precio' className='form-label small text-muted mt-3'>
-              Hasta: {formatPrice(precioActivo)}
+      <div className='filtros' role='group' aria-label='Filtrar por categoría'>
+        {categorias.map(categoria => (
+          <button
+            key={categoria}
+            type='button'
+            className='chip'
+            aria-pressed={categoriasActivas.includes(categoria)}
+            onClick={() => alternarCategoria(categoria)}
+          >
+            {categoria}
+          </button>
+        ))}
+        <button type='button' className='btn btn-sm btn-link link-subrayado' onClick={limpiar}>
+          Limpiar filtros
+        </button>
+      </div>
+
+      <div className='barra-resultados'>
+        <p className='texto-suave mb-0' aria-live='polite'>
+          {loading || error
+            ? ''
+            : `${visibles.length} ${visibles.length === 1 ? 'producto' : 'productos'}`}
+        </p>
+        <div className='d-flex flex-wrap align-items-center gap-3'>
+          <div className='rango'>
+            <label htmlFor='rango-precio' className='form-label mb-0 text-nowrap'>
+              Hasta {formatPrice(precioActivo)}
             </label>
             <input
               id='rango-precio'
               type='range'
-              className='form-range mb-3'
+              className='form-range'
               min='0'
               max={tope}
               step='1000'
               value={precioActivo}
               onChange={event => setPrecioMaximo(Number(event.target.value))}
             />
-            <button
-              type='button'
-              className='btn btn-outline-dark btn-sm w-100 rounded-3'
-              onClick={limpiar}
-            >
-              Limpiar filtros
-            </button>
           </div>
-        </aside>
-
-        <section className='col-12 col-lg-9'>
-          <div className='d-flex justify-content-between align-items-center mb-3 gap-3'>
-            <p className='text-muted mb-0'>
-              {loading || error
-                ? ''
-                : `Mostrando ${visibles.length} ${visibles.length === 1 ? 'producto' : 'productos'}`}
-            </p>
-            <select
-              className='form-select w-auto'
-              aria-label='Ordenar productos'
-              value={orden}
-              onChange={event => setOrden(event.target.value)}
-            >
-              <option value='destacados'>Destacados</option>
-              <option value='precio-asc'>Precio: menor a mayor</option>
-              <option value='precio-desc'>Precio: mayor a menor</option>
-            </select>
-          </div>
-          <div className='row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-4'>{renderProductos()}</div>
-        </section>
+          <select
+            className='form-select w-auto'
+            aria-label='Ordenar productos'
+            value={orden}
+            onChange={event => setOrden(event.target.value)}
+          >
+            <option value='destacados'>Destacados</option>
+            <option value='precio-asc'>Precio: menor a mayor</option>
+            <option value='precio-desc'>Precio: mayor a menor</option>
+          </select>
+        </div>
       </div>
-    </>
+
+      <div className='row row-cols-2 row-cols-md-3 row-cols-xl-4 g-3 g-md-4'>
+        {renderProductos()}
+      </div>
+    </div>
   );
 }
