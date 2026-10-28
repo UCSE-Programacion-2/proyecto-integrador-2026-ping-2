@@ -1,0 +1,769 @@
+{
+	"info": {
+		"_postman_id": "34f6a515-fa7e-46c6-bfb8-a4dd46144da9",
+		"name": "TecnoX API",
+		"description": "API REST del Proyecto Integrador TecnoX (Express + MongoDB + JWT).\n\nUso: importar la colección y un environment (`TecnoX - Local` o `TecnoX - Producción`), cargar `adminPassword` como Current value y ejecutar con el Collection Runner en orden. Ver `backend/postman/README.md`.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 - Auth",
+			"item": [
+				{
+					"name": "Register - 201 crea usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/register",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Email único en cada corrida para no chocar con usuarios existentes",
+									"pm.collectionVariables.set('userEmail', `postman.${Date.now()}@tecnox.com`);",
+									"if (!pm.collectionVariables.get('userPassword')) pm.collectionVariables.set('userPassword', 'claveSegura123');"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 201', () => pm.response.to.have.status(201));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Register - 400 email ya registrado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/register",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Register - 400 password corta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/register",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"corta@tecnox.com\",\n  \"password\": \"123\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Login usuario - 200 devuelve token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/login",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"const data = pm.response.json();",
+									"pm.test('Devuelve token y usuario con rol user', () => {",
+									"  pm.expect(data.token).to.be.a('string');",
+									"  pm.expect(data.user.role).to.eql('user');",
+									"  pm.expect(data.user).to.not.have.property('password');",
+									"});",
+									"pm.collectionVariables.set('token', data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Login - 400 faltan datos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/login",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Login - 401 credenciales inválidas",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/login",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"incorrecta123\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 401', () => pm.response.to.have.status(401));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Login admin - 200 devuelve token admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/auth/login",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"const data = pm.response.json();",
+									"pm.test('El usuario tiene rol admin', () => pm.expect(data.user.role).to.eql('admin'));",
+									"pm.collectionVariables.set('adminToken', data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02 - Productos (público)",
+			"item": [
+				{
+					"name": "Listar productos - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/products"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"const data = pm.response.json();",
+									"pm.test('Devuelve un array', () => pm.expect(data).to.be.an('array'));",
+									"if (data.length) pm.collectionVariables.set('productId', data[0]._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Filtrar por categoría - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/products?category=celulares"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Todos son de la categoría (sin distinguir mayúsculas)', () => {",
+									"  pm.response.json().forEach(p => pm.expect(p.category.toLowerCase()).to.eql('celulares'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Producto por id - 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/products/{{productId}}"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Es el producto pedido', () => pm.expect(pm.response.json()._id).to.eql(pm.collectionVariables.get('productId')));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Producto por id - 404 no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/products/000000000000000000000000"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 404', () => pm.response.to.have.status(404));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Producto por id - 400 id inválido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/products/abc"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03 - Productos (admin)",
+			"item": [
+				{
+					"name": "Crear - 401 sin token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": "{{baseUrl}}/products",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Auriculares Postman\",\n  \"price\": 25000,\n  \"description\": \"Producto creado desde la colección de Postman\",\n  \"category\": \"Auriculares\",\n  \"stock\": 10\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 401', () => pm.response.to.have.status(401));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Crear - 403 usuario sin rol admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/products",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Auriculares Postman\",\n  \"price\": 25000,\n  \"description\": \"Producto creado desde la colección de Postman\",\n  \"category\": \"Auriculares\",\n  \"stock\": 10\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 403', () => pm.response.to.have.status(403));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Crear - 400 faltan datos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sin precio\"\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 400', () => pm.response.to.have.status(400));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Crear - 201 producto nuevo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Auriculares Postman\",\n  \"price\": 25000,\n  \"description\": \"Producto creado desde la colección de Postman\",\n  \"category\": \"Auriculares\",\n  \"stock\": 10\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 201', () => pm.response.to.have.status(201));",
+									"const data = pm.response.json();",
+									"pm.test('Devuelve el producto con _id', () => pm.expect(data._id).to.be.a('string'));",
+									"pm.collectionVariables.set('createdProductId', data._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Actualizar - 200",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products/{{createdProductId}}",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 27000,\n  \"stock\": 5\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Se actualizó el precio', () => pm.expect(pm.response.json().price).to.eql(27000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Actualizar - 404 no existe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products/000000000000000000000000",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 1\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 404', () => pm.response.to.have.status(404));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "04 - Carrito",
+			"item": [
+				{
+					"name": "Ver carrito - 401 sin token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/cart"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 401', () => pm.response.to.have.status(401));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Agregar al carrito - 200",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/cart",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productId\": \"{{productId}}\",\n  \"quantity\": 2\n}"
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('El producto está en el carrito', () => {",
+									"  const ids = pm.response.json().items.map(i => i.product);",
+									"  pm.expect(ids).to.include(pm.collectionVariables.get('productId'));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Ver carrito - 200",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/cart"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Trae los datos del producto (populate)', () => pm.expect(pm.response.json().items[0].product).to.have.property('name'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Quitar del carrito - 200",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": "{{baseUrl}}/cart/{{productId}}"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('El carrito quedó vacío', () => pm.expect(pm.response.json().items).to.have.lengthOf(0));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05 - Limpieza",
+			"item": [
+				{
+					"name": "Eliminar - 200",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products/{{createdProductId}}"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 200', () => pm.response.to.have.status(200));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Eliminar - 404 ya no existe",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{adminToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/products/{{createdProductId}}"
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status 404', () => pm.response.to.have.status(404));",
+									"pm.test('Responde con un mensaje', () => pm.expect(pm.response.json()).to.have.property('message'));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adminToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "productId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "createdProductId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userPassword",
+			"value": "claveSegura123",
+			"type": "string"
+		}
+	]
+}
