@@ -41,7 +41,7 @@ export default function Login() {
       onSubmit={handleSubmit}
     >
       <div className='mb-3'>
-        <label htmlFor='email' className='form-label small fw-semibold text-secondary'>
+        <label htmlFor='email' className='form-label'>
           Correo electrónico
         </label>
         <input
@@ -54,7 +54,7 @@ export default function Login() {
         />
       </div>
       <div className='mb-3'>
-        <label htmlFor='password' className='form-label small fw-semibold text-secondary'>
+        <label htmlFor='password' className='form-label'>
           Contraseña
         </label>
         <input

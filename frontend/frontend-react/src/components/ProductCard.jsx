@@ -4,38 +4,34 @@ import { formatPrice, getImageUrl } from '../utils/format';
 
 export default function ProductCard({ product, onAdd }) {
   const hayStock = product.stock > 0;
+  const detalle = `/producto/${product._id}`;
 
   return (
     <div className='col'>
-      <div className='card h-100 border-0 shadow-sm rounded-4 overflow-hidden'>
-        <img
-          src={getImageUrl(product)}
-          className='card-img-top object-fit-cover bg-light'
-          alt={product.name}
-          style={{ height: 200 }}
-        />
-        <div className='card-body d-flex flex-column justify-content-between'>
-          <div>
-            <span className='text-muted small text-uppercase'>{product.category}</span>
-            <h3 className='card-title h6 fw-bold text-dark mt-1'>{product.name}</h3>
-            <p className='card-text text-success fw-bold fs-5 mb-0'>{formatPrice(product.price)}</p>
+      <article className='tarjeta'>
+        {/* La foto y el nombre llevan al detalle; el botón es la única acción */}
+        <Link to={detalle} className='tarjeta-foto' tabIndex={-1} aria-hidden='true'>
+          <img src={getImageUrl(product)} alt='' loading='lazy' />
+        </Link>
+        <div className='tarjeta-cuerpo'>
+          <h3 className='tarjeta-nombre'>
+            <Link to={detalle}>{product.name}</Link>
+          </h3>
+          <span className='chico texto-suave'>{product.category}</span>
+          <div className='tarjeta-fila'>
+            <span className='tarjeta-precio precio'>{formatPrice(product.price)}</span>
+            <button
+              type='button'
+              className='btn btn-negro btn-sm'
+              disabled={!hayStock}
+              onClick={() => onAdd(product)}
+            >
+              {hayStock ? 'Agregar' : 'Sin stock'}
+              {hayStock && <span className='visually-hidden'> {product.name} al carrito</span>}
+            </button>
           </div>
-          <Link
-            to={`/producto/${product._id}`}
-            className='btn btn-outline-dark btn-sm w-100 rounded-3 mt-3'
-          >
-            Ver Detalle
-          </Link>
-          <button
-            type='button'
-            className='btn btn-warning btn-sm w-100 rounded-3 mt-2 fw-semibold'
-            disabled={!hayStock}
-            onClick={() => onAdd(product)}
-          >
-            {hayStock ? 'Agregar al carrito' : 'Sin stock'}
-          </button>
         </div>
-      </div>
+      </article>
     </div>
   );
 }

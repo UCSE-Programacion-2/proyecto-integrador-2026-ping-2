@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Message from '../components/Message';
+import Cartel from '../components/Cartel';
+import QuantitySelector from '../components/QuantitySelector';
 import useAddToCart from '../hooks/useAddToCart';
 import { getProductById } from '../services/api';
 import { formatPrice, getImageUrl } from '../utils/format';
@@ -36,72 +37,75 @@ export default function ProductDetail() {
     };
   }, [id]);
 
-  if (loading) return <Message>Cargando producto...</Message>;
+  if (loading) {
+    return (
+      <div className='contenedor pagina detalle' aria-busy='true'>
+        <div className='esqueleto' style={{ aspectRatio: '3 / 4' }} />
+        <div>
+          <div className='esqueleto mb-3' style={{ height: 48, width: '80%' }} />
+          <div className='esqueleto mb-3' style={{ height: 40, width: '40%' }} />
+          <div className='esqueleto' style={{ height: 96 }} />
+          <span className='visually-hidden' role='status'>
+            Cargando producto...
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
-      <div className='text-center py-5'>
-        <p className='text-muted fs-5'>{error}</p>
-        <Link to='/catalogo' className='btn btn-warning fw-bold text-uppercase'>
-          Volver al Catálogo
-        </Link>
+      <div className='contenedor pagina'>
+        <div className='vacio'>
+          <Cartel lema={false} />
+          <p className='fs-5 fw-bold mb-1'>{error}</p>
+          <Link to='/catalogo' className='btn btn-warning mt-3'>
+            Volver al catálogo
+          </Link>
+        </div>
       </div>
     );
   }
 
   const sinStock = product.stock <= 0;
+  const maximo = Math.max(product.stock, 1);
 
   return (
-    <div className='row g-5'>
-      <div className='col-12 col-md-6'>
-        <div className='card border-0 shadow-sm rounded-4 overflow-hidden p-4 bg-white text-center'>
-          <img
-            src={getImageUrl(product)}
-            className='img-fluid rounded-3 object-fit-contain w-100'
-            alt={product.name}
-            style={{ maxHeight: 380 }}
-          />
+    <div className='contenedor pagina'>
+      <Link to='/catalogo' className='link-subrayado d-inline-block mb-4'>
+        Volver al catálogo
+      </Link>
+      <div className='detalle'>
+        <div className='detalle-foto'>
+          <img src={getImageUrl(product)} alt={product.name} />
         </div>
-      </div>
 
-      <div className='col-12 col-md-6 d-flex flex-column justify-content-start'>
-        <h1 className='fw-bold display-6 text-dark text-uppercase mb-1'>{product.name}</h1>
-        <p className='text-muted small mb-3'>
-          Categoría: <span className='fw-semibold'>{product.category}</span> | Código: TX-
-          {product._id.slice(-6).toUpperCase()}
-        </p>
-
-        <div className='p-3 rounded-4 mb-4 border'>
-          <span className='h2 fw-bold text-success mb-0'>{formatPrice(product.price)}</span>
-          <p className={`small mt-2 mb-0 ${sinStock ? 'text-danger fw-semibold' : 'text-muted'}`}>
-            {sinStock ? 'Sin stock' : `Stock disponible: ${product.stock}`}
+        <div className='detalle-info'>
+          <span className='texto-suave'>
+            {product.category} · Código TX-{product._id.slice(-6).toUpperCase()}
+          </span>
+          <h1 className='titulo-pagina mt-2 mb-0'>{product.name}</h1>
+          <p className='detalle-precio precio'>{formatPrice(product.price)}</p>
+          <p className={sinStock ? 'text-danger fw-bold' : 'texto-suave'}>
+            {sinStock ? 'Sin stock' : `${product.stock} disponibles en el local`}
           </p>
-        </div>
+          <p className='fs-5 mt-4' style={{ maxWidth: '52ch' }}>
+            {product.description}
+          </p>
 
-        <p className='text-secondary fs-5 mb-3'>{product.description}</p>
-
-        <div className='row g-3 align-items-center'>
-          <div className='col-4 col-sm-3'>
-            <div className='input-group'>
-              <span className='input-group-text bg-light text-muted small fw-bold'>Cant.</span>
-              <input
-                type='number'
-                className='form-control text-center fw-semibold'
-                value={cantidad}
-                min='1'
-                max={Math.max(product.stock, 1)}
-                onChange={event => setCantidad(Math.max(1, Number(event.target.value) || 1))}
-              />
-            </div>
-          </div>
-          <div className='col-8 col-sm-9'>
+          <div className='detalle-compra'>
+            <QuantitySelector
+              cantidad={cantidad}
+              maximo={sinStock ? 1 : maximo}
+              onChange={n => setCantidad(Math.min(maximo, Math.max(1, n)))}
+            />
             <button
               type='button'
-              className='btn btn-warning btn-lg w-100 fw-bold text-uppercase shadow-sm py-2'
+              className='btn btn-warning px-5'
               disabled={sinStock}
               onClick={() => agregar(product, cantidad)}
             >
-              Añadir al Carrito
+              {sinStock ? 'Sin stock' : 'Agregar al carrito'}
             </button>
           </div>
         </div>

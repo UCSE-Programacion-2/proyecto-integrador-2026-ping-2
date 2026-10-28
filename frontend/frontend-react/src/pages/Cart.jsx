@@ -1,61 +1,65 @@
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
+import Cartel from '../components/Cartel';
 import { useCart } from '../context/CartContext';
 import { formatPrice } from '../utils/format';
 
 export default function Cart() {
   const { items, count, total, setQuantity, removeItem } = useCart();
 
-  return (
-    <>
-      <h1 className='h2 fw-bold text-uppercase mb-4'>Tu Carrito</h1>
-      <div className='row g-4'>
-        <div className='col-12 col-lg-8'>
-          {items.length === 0 ? (
-            <div className='text-center py-5'>
-              <p className='text-muted'>Tu carrito está vacío.</p>
-              <Link to='/catalogo' className='btn btn-warning fw-bold text-uppercase'>
-                Ir al Catálogo
-              </Link>
-            </div>
-          ) : (
-            items.map(item => (
-              <CartItem
-                key={item.id}
-                item={item}
-                onQuantityChange={setQuantity}
-                onRemove={removeItem}
-              />
-            ))
-          )}
-        </div>
-
-        <div className='col-12 col-lg-4'>
-          <div className='card border-0 shadow-sm rounded-4 p-4 bg-white'>
-            <h2 className='h5 fw-bold text-uppercase mb-3 border-bottom pb-2'>Resumen</h2>
-            <div className='d-flex justify-content-between mb-2 small text-secondary'>
-              <span>
-                Subtotal ({count} {count === 1 ? 'producto' : 'productos'})
-              </span>
-              <span>{formatPrice(total)}</span>
-            </div>
-            <hr className='my-2' />
-            <div className='d-flex justify-content-between mb-4'>
-              <span className='fw-bold text-dark text-uppercase'>Total</span>
-              <strong className='h4 mb-0'>{formatPrice(total)}</strong>
-            </div>
-            <Link
-              to='/checkout'
-              className={`btn btn-warning btn-lg w-100 fw-bold text-uppercase ${
-                items.length === 0 ? 'disabled' : ''
-              }`}
-              aria-disabled={items.length === 0}
-            >
-              Continuar compra
-            </Link>
-          </div>
+  if (items.length === 0) {
+    return (
+      <div className='contenedor pagina'>
+        <h1 className='titulo-pagina'>Tu carrito</h1>
+        <div className='vacio'>
+          <Cartel lema={false} />
+          <p className='fs-4 fw-bold mb-0'>Tu carrito está vacío</p>
+          <p className='texto-suave mb-3'>Sumá productos desde el catálogo y aparecen acá.</p>
+          <Link to='/catalogo' className='btn btn-warning'>
+            Ir al catálogo
+          </Link>
         </div>
       </div>
-    </>
+    );
+  }
+
+  return (
+    <div className='contenedor pagina'>
+      <h1 className='titulo-pagina'>Tu carrito</h1>
+      <div className='compra'>
+        <div>
+          {items.map(item => (
+            <CartItem
+              key={item.id}
+              item={item}
+              onQuantityChange={setQuantity}
+              onRemove={removeItem}
+            />
+          ))}
+        </div>
+
+        <aside className='panel-negro resumen' aria-labelledby='titulo-resumen'>
+          <h2 id='titulo-resumen' className='fs-4 fw-bold mb-4'>
+            Resumen
+          </h2>
+          <div className='resumen-fila'>
+            <span>
+              Subtotal ({count} {count === 1 ? 'producto' : 'productos'})
+            </span>
+            <span className='precio'>{formatPrice(total)}</span>
+          </div>
+          <div className='resumen-total'>
+            <span className='fw-bold'>Total</span>
+            <strong className='precio'>{formatPrice(total)}</strong>
+          </div>
+          <Link to='/checkout' className='btn btn-warning w-100'>
+            Continuar compra
+          </Link>
+          <Link to='/catalogo' className='d-block text-center mt-3 link-subrayado'>
+            Seguir comprando
+          </Link>
+        </aside>
+      </div>
+    </div>
   );
 }

@@ -61,7 +61,7 @@ export default function Register() {
         ['confirmar', 'Confirmar contraseña', 'password', 'new-password'],
       ].map(([name, label, type, autoComplete]) => (
         <div className='mb-3' key={name}>
-          <label htmlFor={name} className='form-label small fw-semibold text-secondary'>
+          <label htmlFor={name} className='form-label'>
             {label}
           </label>
           <input
