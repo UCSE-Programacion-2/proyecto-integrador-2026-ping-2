@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Póster Tecno X</title>
+<style>
+  @font-face {
+    font-family: 'Archivo';
+    font-style: normal;
+    font-weight: 100 900;
+    font-stretch: 62% 125%;
+    src: url(data:font/woff2;base64,{{FONT}}) format('woff2');
+  }
+
+  :root {
+    --negro: #0a0a0b;
+    --superficie: #17181b;
+    --pista: #2b2c31;
+    --amarillo: #ffd34d;
+    --crema: #fff4cf;
+    --crema-suave: #c8c0a6;
+    --tinta-amarilla: #0a0a0b;
+
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+    /* 1 px del diseño de 1920 × 1080, escalado para que la lámina entre entera en cualquier pantalla */
+    --u: min(calc(100vw / 1920), calc(100vh / 1080));
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--negro);
+    overflow: hidden;
+  }
+
+  body {
+    display: grid;
+    place-items: center;
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-stretch: 100%;
+    color: var(--crema);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--amarillo); color: var(--negro); }
+
+  .lamina {
+    position: relative;
+    width: calc(var(--u) * 1920);
+    height: calc(var(--u) * 1080);
+    overflow: hidden;
+    background: var(--negro);
+  }
+
+  /* Columna de contenido */
+  .contenido {
+    position: absolute;
+    left: calc(var(--u) * 80);
+    top: calc(var(--u) * 72);
+    bottom: calc(var(--u) * 64);
+    width: calc(var(--u) * 1088);
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: calc(var(--u) * 136);
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    margin-left: calc(var(--u) * -6);
+  }
+
+  .bajada {
+    margin-top: calc(var(--u) * 28);
+    font-size: calc(var(--u) * 35);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: calc(var(--u) * 64);
+  }
+
+  .fila--arriba { margin-top: calc(var(--u) * 52); }
+
+  h2 {
+    font-size: calc(var(--u) * 25);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--amarillo);
+    margin-bottom: calc(var(--u) * 14);
+  }
+
+  p, li {
+    font-size: calc(var(--u) * 22);
+    line-height: 1.42;
+    text-wrap: pretty;
+  }
+
+  ul { list-style: none; }
+
+  .lista li + li { margin-top: calc(var(--u) * 12); }
+
+  .lista li {
+    position: relative;
+    padding-left: calc(var(--u) * 24);
+  }
+
+  .lista li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(var(--u) * 12);
+    width: calc(var(--u) * 9);
+    height: calc(var(--u) * 9);
+    background: var(--amarillo);
+  }
+
+  /* Esquema de arquitectura */
+  .esquema { margin-top: calc(var(--u) * 44); }
+
+  .flujo {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    column-gap: calc(var(--u) * 14);
+  }
+
+  .bloque {
+    background: var(--superficie);
+    border-radius: calc(var(--u) * 14);
+    padding: calc(var(--u) * 22) calc(var(--u) * 24) calc(var(--u) * 20);
+  }
+
+  .bloque strong {
+    display: block;
+    font-size: calc(var(--u) * 24);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .bloque span {
+    display: block;
+    margin-top: calc(var(--u) * 6);
+    font-size: calc(var(--u) * 19);
+    line-height: 1.3;
+    color: var(--crema-suave);
+  }
+
+  .flecha {
+    width: calc(var(--u) * 30);
+    height: calc(var(--u) * 30);
+    color: var(--amarillo);
+  }
+
+  .metodo {
+    margin-top: calc(var(--u) * 18);
+    font-size: calc(var(--u) * 20);
+    color: var(--crema-suave);
+  }
+
+  .fila--abajo { margin-top: calc(var(--u) * 44); }
+
+  /* Estado de avance */
+  .avance {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: calc(var(--u) * 6);
+  }
+
+  .etapa {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: calc(var(--u) * 10);
+    font-size: calc(var(--u) * 18);
+    line-height: 1.25;
+    color: var(--crema-suave);
+  }
+
+  .etapa::before {
+    content: '';
+    display: block;
+    height: calc(var(--u) * 10);
+    background: var(--pista);
+  }
+
+  .etapa:first-child::before { border-radius: calc(var(--u) * 5) 0 0 calc(var(--u) * 5); }
+  .etapa:last-child::before { border-radius: 0 calc(var(--u) * 5) calc(var(--u) * 5) 0; }
+
+  .etapa--hecha::before { background: var(--crema-suave); }
+
+  .etapa--actual {
+    color: var(--amarillo);
+    font-weight: 700;
+  }
+
+  .etapa--actual::before { background: var(--amarillo); }
+
+  .avance-nota {
+    margin-top: calc(var(--u) * 18);
+    font-size: calc(var(--u) * 20);
+  }
+
+  /* Créditos */
+  .creditos {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--u) * 6);
+  }
+
+  .creditos .autores {
+    font-size: calc(var(--u) * 21);
+    font-weight: 600;
+  }
+
+  .creditos .marco {
+    font-size: calc(var(--u) * 18);
+    color: var(--crema-suave);
+  }
+
+  /* Campo amarillo con la tienda en el celular */
+  .campo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: calc(var(--u) * 672);
+    background: var(--amarillo);
+    color: var(--tinta-amarilla);
+  }
+
+  .celular {
+    position: absolute;
+    left: calc(var(--u) * 72);
+    top: calc(var(--u) * 88);
+    width: calc(var(--u) * 320);
+    height: calc(var(--u) * 836);
+  }
+
+  .pantalla {
+    position: absolute;
+    left: calc(var(--u) * 14);
+    top: calc(var(--u) * 14);
+    width: calc(var(--u) * 292);
+    bottom: 0;
+    overflow: hidden;
+    border-radius: calc(var(--u) * 34) calc(var(--u) * 34) 0 0;
+    background: var(--crema);
+  }
+
+  .pantalla img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .marco-celular {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .pie-celular {
+    position: absolute;
+    left: calc(var(--u) * 72);
+    top: calc(var(--u) * 948);
+    width: calc(var(--u) * 528);
+    font-size: calc(var(--u) * 19);
+    line-height: 1.35;
+  }
+
+  .pie-celular strong { font-weight: 700; }
+
+  .probar {
+    position: absolute;
+    left: calc(var(--u) * 432);
+    bottom: calc(var(--u) * 156);
+    width: calc(var(--u) * 176);
+  }
+
+  .probar h2 {
+    color: var(--tinta-amarilla);
+    font-size: calc(var(--u) * 28);
+    margin-bottom: calc(var(--u) * 16);
+  }
+
+  .qr {
+    display: block;
+    width: calc(var(--u) * 176);
+    height: calc(var(--u) * 176);
+    border-radius: calc(var(--u) * 10);
+    background: var(--crema);
+  }
+
+  .probar p {
+    margin-top: calc(var(--u) * 14);
+    font-size: calc(var(--u) * 17);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  /* Movimiento: una entrada al cargar y la tienda recorriéndose dentro del celular */
+  @media (prefers-reduced-motion: no-preference) {
+    .entra {
+      animation: subir 760ms var(--ease-out) both;
+      animation-delay: calc(var(--i) * 70ms + 180ms);
+    }
+
+    .campo {
+      animation: barrido 900ms var(--ease-in-out) both;
+    }
+
+    .pantalla img {
+      animation: recorrer 40s 2.4s infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entra { animation: aparecer 400ms ease both; }
+  }
+
+  @keyframes subir {
+    from { opacity: 0; transform: translateY(calc(var(--u) * 18)); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; }
+  }
+
+  @keyframes barrido {
+    from { clip-path: inset(0 0 0 100%); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  /* Baja despacio por la home de la tienda, se detiene en el pie y vuelve arriba */
+  @keyframes recorrer {
+    0%, 6% { transform: translateY(0); animation-timing-function: var(--ease-in-out); }
+    46%, 56% { transform: translateY(calc(-100% + var(--u) * 822)); animation-timing-function: var(--ease-in-out); }
+    94%, 100% { transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+  <main class="lamina">
+    <div class="contenido">
+      <h1 class="entra" style="--i:0">TECNO X</h1>
+      <p class="bajada entra" style="--i:1">La tienda online de un comercio de tecnología de Jujuy.</p>
+
+      <div class="fila fila--arriba">
+        <section class="entra" style="--i:2">
+          <h2>Problema</h2>
+          <p>Tecno X vende celulares, parlantes y accesorios en su local y por redes sociales, pero no tenía una tienda propia para mostrar su catálogo y vender online.</p>
+        </section>
+        <section class="entra" style="--i:3">
+          <h2>Objetivos</h2>
+          <ul class="lista">
+            <li>Que el cliente encuentre un producto, lo sume al carrito y compre desde el celular.</li>
+            <li>Que el comercio cargue, edite y dé de baja sus productos sin escribir código.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="esquema">
+        <h2 class="entra" style="--i:4">Cómo funciona</h2>
+        <div class="flujo">
+          <div class="bloque entra" style="--i:5"><strong>Tienda</strong><span>React + Vite · Vercel</span></div>
+          <svg class="flecha entra" style="--i:6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <div class="bloque entra" style="--i:6"><strong>API REST</strong><span>Express + JWT · Render</span></div>
+          <svg class="flecha entra" style="--i:7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          <div class="bloque entra" style="--i:7"><strong>Base de datos</strong><span>MongoDB · Atlas</span></div>
+        </div>
+        <p class="metodo entra" style="--i:8">Cuatro sprints con Scrum: cada tarea es un issue, una rama y un pull request con revisión de código.</p>
+      </section>
+
+      <div class="fila fila--abajo">
+        <section class="entra" style="--i:9">
+          <h2>Estado de avance</h2>
+          <ol class="avance">
+            <li class="etapa etapa--hecha">Idea y diseño</li>
+            <li class="etapa etapa--hecha">En desarrollo</li>
+            <li class="etapa etapa--actual" aria-current="step">Prototipo funcional</li>
+            <li class="etapa">Resultados preliminares</li>
+          </ol>
+          <p class="avance-nota">Ya funciona en producción.</p>
+        </section>
+        <section class="entra" style="--i:10">
+          <h2>Próximos pasos</h2>
+          <ul class="lista">
+            <li>Cobrar online con Mercado Pago.</li>
+            <li>Descontar el stock al confirmar cada compra.</li>
+            <li>Probar la tienda con clientes reales del local.</li>
+          </ul>
+        </section>
+      </div>
+
+      <footer class="creditos entra" style="--i:11">
+        <p class="autores">Sadir, Martín · Matos, Francisco Demian · Campos, Matias</p>
+        <p class="marco">Directora de carrera: Ing. Laura Garay · Proyecto Integrador · Programación II 2026 · UCSE</p>
+      </footer>
+    </div>
+
+    <aside class="campo" aria-label="La tienda en producción">
+      <div class="celular entra" style="--i:3">
+        <div class="pantalla">
+          <img src="data:image/jpeg;base64,{{SCREEN}}" alt="Página de inicio de la tienda Tecno X en un celular: categorías, promociones y productos destacados.">
+        </div>
+        <!-- Contorno del celular del logo de Tecno X: muesca arriba, abierto abajo -->
+        <svg class="marco-celular" viewBox="0 0 320 836" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M7 836V48A41 41 0 0 1 48 7H118C124 7 125 17 133 17H187C195 17 196 7 202 7H272A41 41 0 0 1 313 48V836" stroke="#0a0a0b" stroke-width="14" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="pie-celular entra" style="--i:5">La tienda real, en un celular.<br><strong>tecnox-tienda.vercel.app</strong></p>
+
+      <div class="probar entra" style="--i:6">
+        <h2>Probá la tienda</h2>
+        {{QR}}
+      </div>
+    </aside>
+  </main>
+</body>
+</html>
