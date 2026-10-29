@@ -425,7 +425,7 @@ textarea {
 /* El disco toma el menor entre el 46% del ancho y lo que entra sobre el título,
    así no lo tapa en pantallas anchas y bajas (se ve el 80% superior del disco) */
 .portada .cartel {
-  --diametro: min(46vw, max(280px, calc((100svh - var(--alto-nav) - 340px) * 1.24)));
+  --diametro: min(42vw, max(260px, calc((100svh - var(--alto-nav) - 400px) * 1.24)));
 
   position: absolute;
   top: calc(var(--diametro) * -0.196);
@@ -772,6 +772,7 @@ textarea {
   font-size: var(--t-titulo);
   font-weight: 800;
   line-height: 1;
+  color: var(--crema);
 }
 
 .nosotros-foto {
@@ -793,6 +794,7 @@ textarea {
   margin: 0 0 10px;
   font-size: var(--t-lead);
   font-weight: 800;
+  color: var(--crema);
 }
 
 .nosotros-bloques p {
